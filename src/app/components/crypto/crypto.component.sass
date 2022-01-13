@@ -1,0 +1,110 @@
+@import '../../../assets/style/var'
+
+// ##########################################################
+// ##########################################################
+// ##########################################################
+
+.crypto
+    width: 100%
+    font-family: $font2
+    color: $white
+    line-height: 1.3em
+    font-weight: regular
+    font-size: 2vw
+    padding: 1vw
+    display: grid
+    grid-template-columns: 5% 12% 12% 20% 10% auto 6%
+    align-content: center
+    grid-column-gap: 2vw
+    background-color: $grey
+    border-top-right-radius: 6px
+    border-bottom-right-radius: 6px
+
+.crypto:hover
+    background-color: $grey-light
+
+
+.logo
+    width: 100%
+    align-self: center
+
+.asset-name
+    align-self: center
+    font-size: 2.5vw
+
+
+.percentage
+    align-self: center
+    text-align: right
+    font-size: 2vw
+
+.labels
+    text-align: left
+    align-self: center
+
+.asset-numbers
+    text-align: right
+    align-self: center
+
+.total
+    text-align: right
+    align-self: center
+    font-size: 2.5vw
+
+.buttons
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+
+.buy-button
+    padding: 0.5vw
+    border-radius: 6px
+    border: none
+    font-size: 2.5vw
+    background-color: $green
+    color: $white
+    text-align: center
+    cursor: pointer
+
+.buy-button:hover
+    background-color: $green-light
+
+.sell-button
+    padding: 0.5vw
+    border-radius: 6px
+    border: none
+    font-size: 2.5vw
+    background-color: $red
+    color: $white
+    text-align: center
+    cursor: pointer
+
+.sell-button:hover
+    background-color: $red-light
+
+@media only screen and (min-width: 768px)
+    .crypto
+        height: 5vw
+        font-size: 1vw
+        padding: 0.5vw
+        grid-column-gap: 1vw
+
+    .mat-icon
+        font-size: 1.5vw
+
+    .asset-name
+        font-size: 1.25vw
+
+    .percentage
+        font-size: 1vw
+
+    .total
+        font-size: 1.25vw
+
+    .buy-button
+        padding: 0.25vw
+        font-size: 1.25vw
+
+    .sell-button
+        padding: 0.25vw
+        font-size: 1.25vw

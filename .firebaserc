@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "crypto--god": {
+      "hosting": {
+        "CryptoGod": [
+          "crypto--god"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "crypto--god"
+  }
+}

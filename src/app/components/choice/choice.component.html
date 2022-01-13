@@ -1,0 +1,41 @@
+
+<div class="choice-container" *ngIf="this.offeredAssets.length > 0">
+
+    <div class="header">
+        Daily free offer! <br>
+        Choose a new crypto for your portfolio:
+    </div>
+
+   
+    <div class="buttons">
+
+        <button *ngFor="let offeredAsset of this.offeredAssets; let i = index" (click)="choose(offeredAsset)">
+            <img class="logo" src={{offeredAsset.logo_url}}>
+            {{offeredAsset.name}} <br>
+            {{(1000/(offeredAsset.price)).toPrecision(6)}}
+            {{offeredAsset.id.substring(0,5)}}
+        </button>
+       
+    </div>
+</div>
+
+<div class="chosen-container" *ngIf="this.offeredAssets.length === 0"> 
+
+    <div class="header">
+        Good Choice! <br>
+        You now own:
+    </div>
+
+    <div class="chosen-one">
+        <img class="big-logo" src={{this.lastNewAsset.logo_url}}>
+            {{this.lastNewAsset.name}} <br>
+            {{this.lastNewAsset.amount_history[0].toPrecision(6)}}
+            {{this.lastNewAsset.id.substring(0,5)}} 
+    </div>
+
+    <div class="header">
+        next offer in <br>
+        {{hours}}:{{minutes | number:'2.0-0'}}:{{seconds | number:'2.0-0'}} hours
+    </div>
+
+</div>

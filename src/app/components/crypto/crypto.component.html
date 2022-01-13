@@ -1,0 +1,47 @@
+<div class="crypto" (click)="chooseAsset()" [style.background-color]="isChosen ? '#51697b' : ''">
+    
+    <img class="logo" src={{asset.logo_url}}>
+
+    <div class="asset-name">{{asset.name}}</div>
+
+    <div class="percentage">
+        {{(((asset.history[range].prices[asset.history[range].prices.length-1] / asset.history[range].prices[0]) -
+        1)*100) | number:'1.0-0'}} %
+    </div>
+
+    <div class="sparkline">
+        <app-sparkline [asset]="asset" [range]="this.range">
+        </app-sparkline>
+    </div>
+
+    <div class="labels" *ngIf="(asset.id !='TOTAL') && (asset.id !='USD')">
+        amount: <br>
+        price: <br>
+        total: <br>
+    </div>
+
+    <div class="labels" *ngIf="(asset.id =='TOTAL') || (asset.id =='USD')">
+        total: <br>
+    </div>
+
+    <div [@alert]="isAlert? 'alert' : 'normal'" class="asset-numbers" *ngIf="(asset.id !='TOTAL') && (asset.id !='USD')">
+        {{asset.amount_history[asset.amount_history.length-1].toPrecision(6)}} {{asset.id.substring(0,5)}}<br>
+        {{asset.price.toPrecision(6)}} $ <br>
+        {{(asset.amount_history[asset.amount_history.length-1] * asset.price) | number:'1.0-0'}} $
+    </div>
+
+    <div class="total" *ngIf="(asset.id =='TOTAL')">
+        {{(asset.amount_history[asset.amount_history.length-1] * asset.price) | number:'1.0-0'}} $
+    </div>
+
+    <div [@alert]="isAlert? 'alert' : 'normal'" class="asset-numbers" *ngIf="(asset.id =='USD')">
+        {{(asset.amount_history[asset.amount_history.length-1]) | number:'1.0-0'}} $
+    </div>
+
+
+    <div class="buttons" *ngIf="(asset.id !='TOTAL') && (asset.id !='USD')">
+        <button class="buy-button" (click)="buyAsset()">buy</button>
+
+        <button class="sell-button" (click)="sellAsset()">sell</button>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+@import '../../../assets/style/var'
+
+h2
+    text-align: center
+    font-family: $font1
+    color: $white
+    font-weight: bold
+    font-size: 3vw
+    margin: 2vw
+
+.screen
+    height: 46vw
+    text-align: center
+    color: $white
+    font-weight: bold
+    font-size: 3vw
+    border: 2px solid $red-light
+    background-color: $grey-dark
+    border-radius: 6px
+    margin-bottom: 2vw
+
+.card
+    height: 100%
+    color: $green
+    font-size: 5vw
+    background-image: url("/../assets/moonrocket.png")
+    background-size: cover
+    display: flex
+    flex-direction: column
+    justify-content: center
+
+.error-message
+    color: $red-light
+    border: 2px solid $red-light
+    border-radius: 6px
+    font-size: 5vw
+    text-align: center 
+    padding: 1vw
+    margin-top: 2vw
+
+.toggle-sold-button
+    width: 100%
+    padding: 1vw
+    border: none
+    border-radius: 6px
+    font-size: 3vw
+    background-color: $green
+    color: $white
+    text-align: center
+    cursor: pointer
+
+.toggle-sold-button:hover
+    background-color: $green-light
+
+.drag-unit
+    width: 100%
+    display: grid
+    grid-template-columns: 7% auto
+    align-content: center
+    margin-bottom: 1vw
+    cursor: pointer
+
+.mat-icon
+    font-size: 4vw
+    color: $white
+    height: 100%
+    width: 100%
+    background-color: $grey-light
+    border-top-left-radius: 6px
+    border-bottom-left-radius: 6px 
+    align-self: center
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+
+
+@media only screen and (min-width: 768px)
+    .main-container
+        display: grid
+        grid-template-columns: 49.5% 49.5%
+        grid-gap: 1vw
+
+    .screen
+        height: 23vw
+        font-size: 1.5vw
+        margin-bottom: 0vw
+
+    .card
+        font-size: 2.5vw
+
+    .toggle-sold-button
+        padding: 0.5vw
+        font-size: 1.5vw
+    .drag-unit
+        margin-bottom: 0.5vw
+
+    .mat-icon
+        font-size: 2vw

@@ -1,0 +1,59 @@
+<div *ngIf="(isLoading$ | async) && (errorMessage$ | async) === ''">
+    <br>
+    <mat-spinner mode="indeterminate" style="margin:0 auto;" diameter="100" color="accent"></mat-spinner>
+    <br>
+    <h2>loading latest data..</h2>
+</div>
+
+<div class="error-message" *ngIf="(errorMessage$ | async) != ''">
+    {{errorMessage$ | async}}
+ </div>
+
+<div *ngIf="!(isLoading$ | async) && (errorMessage$ | async) === ''">
+
+    <app-settings-bar [radioChecked]="radioChecked$ | async" [newOfferAvailable]="(offeredAssets$ | async).length > 0" (changeRange)="changeRange($event)">
+    </app-settings-bar>
+
+    <div class="main-container">
+        <div class="screen" [ngSwitch]="radioChecked$ | async">
+
+            <div class="card" *ngSwitchCase="RADIOCHECKED.none" (click)="switchToOffer()">
+                Welcome to this crypto trading game. <br>
+                Have fun!
+            </div>
+
+            <app-choice *ngSwitchCase="RADIOCHECKED.offer" [offeredAssets]="offeredAssets$ | async"
+                [lastNewAsset]="lastNewAsset$ | async" [nextNewAssetDate]="nextNewAssetDate$ | async">
+            </app-choice>
+
+            <div class="card" *ngSwitchCase="RADIOCHECKED.quest">
+                Sorry! <br>
+                Quests are not implemented yet.
+            </div>
+
+
+            <app-chart *ngSwitchDefault [asset]="chosenAsset$ | async" [range]="range$ | async">
+            </app-chart>
+        </div>
+
+        <div class="crypto-list" *ngIf="(shownAssets$ | async) as assets">
+            <div cdkDropListGroup>
+                <div cdkDropList [cdkDropListData]="assets" (cdkDropListDropped)="drop($event)">
+                    <div class="drag-unit" cdkDrag *ngFor="let asset of assets" [cdkDragData]="asset">
+                        <mat-icon cdkDragHandle>swap_vert</mat-icon>
+                        <app-crypto [asset]="asset" [range]="range$ | async"
+                            [isChosen]="asset.id === (chosenAsset$ | async).id"
+                            [isAlert]="(alertAssetId$ | async) === asset.id">
+                        </app-crypto>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="(soldAssets$ | async).length > 0">
+                <button class="toggle-sold-button" *ngIf="(showSoldCryptos$ | async)" (click)="toggleSold()">hide sold
+                    cryptos</button>
+                <button class="toggle-sold-button" *ngIf="!(showSoldCryptos$ | async)" (click)="toggleSold()">show sold
+                    cryptos</button>
+            </div>
+        </div>
+    </div>
+</div>

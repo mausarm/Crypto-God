@@ -14,3 +14,6 @@ install:
 
 script:
   - npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+  - ng build --prod
+  - ng deploy
+

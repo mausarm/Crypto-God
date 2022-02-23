@@ -9,7 +9,7 @@ import { Asset } from '../../logic/asset';
   templateUrl: './sparkline.component.html',
   styleUrls: ['./sparkline.component.sass']
 })
-export class SparklineComponent implements OnInit {
+export class SparklineComponent implements OnInit, OnChanges {
 
   @Input() asset: Asset;
   @Input() range: number;

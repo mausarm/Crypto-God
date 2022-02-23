@@ -20,7 +20,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   ]
 })
 
-export class CryptoComponent implements OnInit {
+export class CryptoComponent {
 
   @Input() asset: Asset;
   @Input() range: number;
@@ -28,9 +28,6 @@ export class CryptoComponent implements OnInit {
   @Input() isAlert: boolean;
 
   constructor(private store: Store) { }
-
-  ngOnInit() {
-  }
 
 
 

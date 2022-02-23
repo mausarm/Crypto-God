@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import * as fromActions from 'src/app/store/actions';
@@ -20,7 +20,7 @@ import { Subscription, timer } from 'rxjs';
   ]
 
 })
-export class SettingsBarComponent implements OnInit {
+export class SettingsBarComponent implements OnInit, OnDestroy {
 
   @Input() radioChecked: string;
   @Input() newOfferAvailable: boolean;

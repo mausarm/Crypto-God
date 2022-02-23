@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Asset } from 'src/app/logic/asset';
 import { Store } from '@ngrx/store';
 
@@ -13,7 +13,7 @@ import { interval, Subscription, timer } from 'rxjs';
   templateUrl: './choice.component.html',
   styleUrls: ['./choice.component.sass'],
 })
-export class ChoiceComponent implements OnInit {
+export class ChoiceComponent implements OnInit, OnDestroy {
 
   @Input() offeredAssets: Asset[];
   @Input() lastNewAsset: Asset;

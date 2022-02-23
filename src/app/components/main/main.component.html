@@ -5,11 +5,11 @@
     <h2>loading latest data...</h2>
 </div>
 
-<div class="error-message" *ngIf="(errorMessage$ | async) != ''">
+<div class="error-message" *ngIf="(errorMessage$ | async) !== ''">
     {{errorMessage$ | async}}
  </div>
 
-<div *ngIf="!(isLoading$ | async) && (errorMessage$ | async) === ''">
+<div *ngIf="(isLoading$ | async) === false && (errorMessage$ | async) === ''">
 
     <app-settings-bar [radioChecked]="radioChecked$ | async" [newOfferAvailable]="(offeredAssets$ | async).length > 0" (changeRange)="changeRange($event)">
     </app-settings-bar>
@@ -51,7 +51,7 @@
             <div *ngIf="(soldAssets$ | async).length > 0">
                 <button class="toggle-sold-button" *ngIf="(showSoldCryptos$ | async)" (click)="toggleSold()">hide sold
                     cryptos</button>
-                <button class="toggle-sold-button" *ngIf="!(showSoldCryptos$ | async)" (click)="toggleSold()">show sold
+                <button class="toggle-sold-button" *ngIf="(showSoldCryptos$ | async) === false" (click)="toggleSold()">show sold
                     cryptos</button>
             </div>
         </div>

@@ -10,7 +10,7 @@ import { Asset } from '../../logic/asset';
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.sass']
 })
-export class ChartComponent implements OnInit {
+export class ChartComponent implements OnInit, OnChanges {
 
   @Input() asset: Asset;
   @Input() range: number;
@@ -51,7 +51,7 @@ export class ChartComponent implements OnInit {
         labels: {
           fontSize: 16,
           boxWidth: 0
-          
+
         }
       },
       scales: {
@@ -106,7 +106,7 @@ export class ChartComponent implements OnInit {
     else {
       this.chartLabels = this.asset.history[this.range].timestamps.map(d => formatDate(d, 'YYYY-MM-dd', 'en-US'));
     }
-  
+
   }
 
 }

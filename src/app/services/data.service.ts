@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, concat, of, Subscription, timer, merge, EMPTY, throwError, interval } from 'rxjs';
-import { tap, switchMap, concatMapTo, share, takeLast, retry, catchError, retryWhen, delay, mergeMap, takeUntil } from 'rxjs/operators';
+import { Observable, of, timer, throwError } from 'rxjs';
+import { switchMap, concatMapTo, retryWhen, delay, mergeMap } from 'rxjs/operators';
 import { formatDate } from '@angular/common';
 
 import { Asset } from '../logic/asset';
-import { Quest } from 'src/app/logic/quest';
 import { RANGES, STATUS } from '../logic/global_constants';
 import { AppState } from '../store/app_state';
-import { INITIAL_ASSETS, INITIAL_OFFER_STATE, INITIAL_QUEST_STATE, INITIAL_UI_STATE } from '../store/initial_state';
 import { parseJsonToAppstate } from '../logic/parse_json_to_appstate';
 
 @Injectable({

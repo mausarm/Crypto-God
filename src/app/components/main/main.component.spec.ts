@@ -9,6 +9,13 @@ import { CryptoComponent } from '../crypto/crypto.component';
 import { SparklineComponent } from '../sparkline/sparkline.component';
 import { SettingsBarComponent } from '../settings-bar/settings-bar.component';
 import { ChoiceComponent } from '../choice/choice.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+import { ChartsModule } from 'ng2-charts';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
 
 describe('MainComponent', () => {
   let component: MainComponent;
@@ -17,11 +24,22 @@ describe('MainComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       providers: [provideMockStore({ initialState: MOCK_APPSTATE })],
-      declarations: [ 
+      declarations: [
         MainComponent,
+        ChartComponent,
+        CryptoComponent,
+        SparklineComponent,
+        SettingsBarComponent,
+      ],
+      imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        ChartsModule,
+        DragDropModule,
       ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

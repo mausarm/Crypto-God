@@ -15,7 +15,7 @@ describe('ChoiceComponent', () => {
     })
     .compileComponents();
   });
- 
+
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ChoiceComponent);

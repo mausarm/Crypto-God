@@ -6,6 +6,8 @@ import { RANGES } from 'src/app/logic/global_constants';
 import { MOCK_APPSTATE } from 'src/app/logic/mock_appstate';
 
 import { CryptoComponent } from './crypto.component';
+import { SparklineComponent } from '../sparkline/sparkline.component';
+import { ChartsModule } from 'ng2-charts';
 
 describe('CryptoComponent', () => {
   let component: CryptoComponent;
@@ -14,8 +16,8 @@ describe('CryptoComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       providers: [provideMockStore({})],
-      declarations: [ CryptoComponent ],
-      imports: [ BrowserAnimationsModule ]
+      declarations: [ CryptoComponent, SparklineComponent ],
+      imports: [ BrowserAnimationsModule, ChartsModule ]
     })
     .compileComponents();
   });

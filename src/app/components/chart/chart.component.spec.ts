@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ChartsModule } from 'ng2-charts';
 import { RANGES } from 'src/app/logic/global_constants';
 import { MOCK_APPSTATE } from 'src/app/logic/mock_appstate';
 
@@ -10,7 +11,8 @@ describe('ChartComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ChartComponent ]
+      declarations: [ ChartComponent ],
+      imports: [ ChartsModule ]
     })
     .compileComponents();
   });

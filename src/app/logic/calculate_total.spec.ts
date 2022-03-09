@@ -1,4 +1,4 @@
-import { MOCK_APPSTATE, SIMPLE_MOCKASSETS } from "./mock_appstate";
+import { MOCK_APPSTATE, SIMPLE_MOCKASSETS } from "../store/mock_appstate";
 import { calculateTotalAssets } from "./calculate_total";
 
 describe('calculateTotalAssets', () => {

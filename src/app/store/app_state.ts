@@ -1,5 +1,5 @@
-import { Quest } from 'src/app/logic/quest';
-import { Asset } from '../logic/asset';
+import { Quest } from 'src/app/store/quest';
+import { Asset } from './asset';
 
 
 export interface AppState {

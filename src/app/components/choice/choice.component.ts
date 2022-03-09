@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { Asset } from 'src/app/logic/asset';
+import { Asset } from 'src/app/store/asset';
 import { Store } from '@ngrx/store';
 
 import * as fromActions from 'src/app/store/actions';
 
-import { STATUS } from 'src/app/logic/global_constants';
+import { STATUS } from 'src/app/store/global_constants';
 import { interval, Subscription, timer } from 'rxjs';
 
 

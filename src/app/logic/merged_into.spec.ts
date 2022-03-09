@@ -1,5 +1,5 @@
 import { INITIAL_ASSETS } from "../store/initial_state";
-import { MOCK_APPSTATE } from "./mock_appstate";
+import { MOCK_APPSTATE } from "../store/mock_appstate";
 import { mergedInto } from "./merged_into";
 
 describe('mergedInto', () => {

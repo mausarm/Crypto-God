@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, timer, throwError } from 'rxjs';
-import { switchMap, concatMapTo, retryWhen, delay, mergeMap } from 'rxjs/operators';
-import { formatDate } from '@angular/common';
+import { Observable, of, timer, throwError, from, combineLatest } from 'rxjs';
+import { switchMap, concatMapTo, retryWhen, delay, mergeMap, concatMap, toArray, map } from 'rxjs/operators';
 
-import { Asset } from '../logic/asset';
-import { RANGES, STATUS } from '../logic/global_constants';
+import { Asset } from '../store/asset';
+import { RANGES, STATUS } from '../store/global_constants';
 import { AppState } from '../store/app_state';
 import { parseJsonToAppstate } from '../logic/parse_json_to_appstate';
 
@@ -15,7 +14,6 @@ import { parseJsonToAppstate } from '../logic/parse_json_to_appstate';
 export class DataService {
 
 
-  private NOMICS_API_KEY = 'ec9b86934dad1c08e591ea26a861a5a3';
   private nextPossibleAPIRequest: Date = new Date();
 
 
@@ -48,7 +46,7 @@ export class DataService {
   }
 
   private getAllAssetsFromAPI(length: number): Observable<any> {
-    return this.httpClient.get<any>(`https://api.nomics.com/v1/currencies/ticker?sort=rank&per-page=${length}&page=1&key=${this.NOMICS_API_KEY}`)
+    return this.httpClient.get<any>(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${length}&page=1&sparkline=false`)
   }
 
 
@@ -73,11 +71,12 @@ export class DataService {
               if (assetData) {
                 updatedAssets.push(new Asset(
                   asset.id,
+                  asset.symbol,
                   asset.name,
                   asset.status,
-                  assetData.logo_url,
-                  assetData.price,
-                  assetData.first_trade,
+                  assetData.image,
+                  assetData.current_price,
+                  assetData.atl_date,
                   asset.history,
                   asset.amount_history,
                   asset.amount_timestamps
@@ -98,16 +97,16 @@ export class DataService {
 
 
   private getDelayForNextAPIRequest(): number {
-    //nötig, weil nomics nur einen Request pro Sekunde verarbeitet
+    //nötig, weil nomics nur einen Request pro Sekunde verarbeitet (deprecated weil jetzt CoinGecko API)
     let delay: number;
     const jetzt = new Date();
     if (jetzt > this.nextPossibleAPIRequest) {
       delay = 0;
-      this.nextPossibleAPIRequest = new Date(new Date().getTime() + 1000);//nächstmöglicher API Request in 1s
+      this.nextPossibleAPIRequest = new Date(new Date().getTime() + 10);
     }
     else {
       delay = this.nextPossibleAPIRequest.getTime() - jetzt.getTime();
-      this.nextPossibleAPIRequest = new Date(this.nextPossibleAPIRequest.getTime() + 1000);//nächstmöglicher API Request wird um 1s erhöht
+      this.nextPossibleAPIRequest = new Date(this.nextPossibleAPIRequest.getTime() + 10);
     }
     return delay;
   }
@@ -116,25 +115,59 @@ export class DataService {
 
 
   private getSparklinesFromAPI(assets: ReadonlyArray<Asset>): Observable<ReadonlyArray<Asset>> {
-    return this.getSparklinesRangeFromAPI(assets, RANGES.day)
-      .pipe(
-        switchMap(assets => this.getSparklinesRangeFromAPI(assets, RANGES.week)),
-        switchMap(assets => this.getSparklinesRangeFromAPI(assets, RANGES.month)),
-        switchMap(assets => this.getSparklinesRangeFromAPI(assets, RANGES.year)),
-        switchMap(assets => this.getSparklinesRangeFromAPI(assets, RANGES.all)),
-      );
+    return from(assets).pipe(
+
+      concatMap(asset =>
+        combineLatest([
+          of(asset),
+          this.getSparklineFromAPI(asset, RANGES.day),
+          this.getSparklineFromAPI(asset, RANGES.week),
+          this.getSparklineFromAPI(asset, RANGES.month),
+          this.getSparklineFromAPI(asset, RANGES.year),
+          this.getSparklineFromAPI(asset, RANGES.all)
+        ])
+          .pipe(
+            map(([asset, day, week, month, year, all]) =>
+              new Asset(
+                asset.id,
+                asset.symbol,
+                asset.name,
+                asset.status,
+                asset.logo_url,
+                asset.price,
+                asset.first_trade,
+                [day, week, month, year, all],
+                asset.amount_history,
+                asset.amount_timestamps
+              )
+            )
+          )
+      ),
+      toArray()
+    );
   }
 
 
 
-  private getSparklinesRangeFromAPI(assets: ReadonlyArray<Asset>, range: number): Observable<ReadonlyArray<Asset>> {
-    const updatedAssets: Asset[] = [];
-    const ids = assets.filter(a => (a.status != STATUS.usd) && (a.status != STATUS.total)).map(a => a.id).reduce((total: string, cur: string) => total + "," + cur);
-    const startdate = this.getStartDate(range);
+
+
+
+
+
+
+  private getSparklineFromAPI(asset: Asset, range: number): Observable<any> {
+
+    //bei TOTAL und USD gibt es keine Sparkline von API
+    if (asset.id === "TOTAL" || asset.id === "USD") {
+      return of(asset.history[range]);
+    }
+
+
+    const days = this.getDays(range);
     let retries = 1;
     return timer(this.getDelayForNextAPIRequest())
       .pipe(
-        concatMapTo(this.httpClient.get<any>(`https://api.nomics.com/v1/currencies/sparkline?ids=${ids}&start=${startdate}&key=${this.NOMICS_API_KEY}`)),
+        concatMapTo(this.httpClient.get<any>(`https://api.coingecko.com/api/v3/coins/${asset.id}/market_chart?vs_currency=usd&days=${days}`)),
         retryWhen(errors => errors
           .pipe(
             delay(this.getDelayForNextAPIRequest()),
@@ -142,34 +175,17 @@ export class DataService {
           )
         ),
         switchMap(
-          data => {
-            //Daten in updatedAsset[] einpflegen
-            for (let asset of assets) {
-              const assetData = data.find(a => asset.id === a.currency);
-              if (assetData) {
-                const updatedHistory = asset.history;
-                updatedHistory[range].prices = assetData.prices.map(x => Number(x));
-                updatedHistory[range].timestamps = assetData.timestamps.map(x => new Date(x));
-                updatedHistory[range].prices.push(asset.price); //aktuellsten Preis per Hand dazu
-                updatedHistory[range].timestamps.push(new Date());
-                updatedAssets.push(new Asset(
-                  asset.id,
-                  asset.name,
-                  asset.status,
-                  asset.logo_url,
-                  asset.price,
-                  asset.first_trade,
-                  updatedHistory,
-                  asset.amount_history,
-                  asset.amount_timestamps
-                )
-                )
-              }
-              else {
-                updatedAssets.push(asset.clone());
-              }
+          assetData => {
+            const sparkline = asset.history[range];
+
+            if (assetData) {
+              sparkline.prices = assetData.prices.map(x => Number(x[1]));
+              sparkline.timestamps = assetData.timestamps.map(x => new Date(x[0]));
+              sparkline.prices.push(asset.price); //aktuellsten Preis per Hand dazu
+              sparkline.timestamps.push(new Date());
             }
-            return of(updatedAssets);
+
+            return of(sparkline);
           })
       );
   }
@@ -183,32 +199,26 @@ export class DataService {
 
 
 
-  private getStartDate(range: number): string {
-    var temp = new Date();
+  private getDays(range: number): string {
 
     switch (range) {
 
       case RANGES.day: {
-        temp.setDate(temp.getDate() - 1);
-        break;
+        return "1";
       }
       case RANGES.week: {
-        temp.setDate(temp.getDate() - 7);
-        break;
+        return "7";
       }
       case RANGES.month: {
-        temp.setDate(temp.getDate() - 28);
-        break;
+        return "28";
       }
       case RANGES.year: {
-        temp.setDate(temp.getDate() - 365);
-        break;
+        return "365";
       }
       case RANGES.all: {
-        temp = new Date('2011-01-01');
+        return "max";
       }
     }
-    return formatDate(temp, 'yyyy-MM-ddTHH%3Amm%3Ass', 'en-US') + "Z";
   }
 
 
@@ -223,25 +233,25 @@ export class DataService {
   public findNewOffer(excludedAssets: ReadonlyArray<Asset>): Observable<ReadonlyArray<Asset>> {
     let retries = 3;
     return timer(this.getDelayForNextAPIRequest())
-    .pipe(
-      concatMapTo(this.getAllAssetsFromAPI(excludedAssets.length + 50)),//es werden 50 cryptos mehr als die vorhandenen geladen
-      retryWhen(errors => errors
-        .pipe(
-          delay(this.getDelayForNextAPIRequest()),
-          mergeMap(error => retries-- > 0 ? of(error) : throwError("Crypto data server not available. Please try again."))
-        )
-      ),
-      switchMap((assetData) => {
-        //ein Array von 4 Assets, die noch nicht im Besitz sind
-        const unpickedAssets = assetData.filter(d => !excludedAssets.find(x => x.id === d.id));
-        const newOffer: Asset[] = [];
-        while (newOffer.length < 4) {
-          const d = unpickedAssets.splice(Math.floor(Math.random() * unpickedAssets.length), 1)[0];
-          newOffer.push(new Asset(d.id, d.name, STATUS.offered, d.logo_url, d.price, d.first_trade, [], [0], []));
-        }
-        return of(newOffer);
-      })
-    );
+      .pipe(
+        concatMapTo(this.getAllAssetsFromAPI(excludedAssets.length + 50)),//es werden 50 cryptos mehr als die vorhandenen geladen
+        retryWhen(errors => errors
+          .pipe(
+            delay(this.getDelayForNextAPIRequest()),
+            mergeMap(error => retries-- > 0 ? of(error) : throwError("Crypto data server not available. Please try again."))
+          )
+        ),
+        switchMap((assetData) => {
+          //ein Array von 4 Assets, die noch nicht im Besitz sind
+          const unpickedAssets = assetData.filter(d => !excludedAssets.find(x => x.id === d.id));
+          const newOffer: Asset[] = [];
+          while (newOffer.length < 4) {
+            const d = unpickedAssets.splice(Math.floor(Math.random() * unpickedAssets.length), 1)[0];
+            newOffer.push(new Asset(d.id, d.symbol, d.name, STATUS.offered, d.logo_url, d.price, d.first_trade, [], [0], []));
+          }
+          return of(newOffer);
+        })
+      );
   }
 
 }

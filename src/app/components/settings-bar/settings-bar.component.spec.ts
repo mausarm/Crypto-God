@@ -3,7 +3,7 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SettingsBarComponent } from './settings-bar.component';
-import { RADIOCHECKED } from 'src/app/logic/global_constants';
+import { RADIOCHECKED } from 'src/app/store/global_constants';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 

@@ -1,5 +1,6 @@
 export class Asset {
-  id: string; //z.B. "BTC"
+  id: string; //z.B. "bitcoin"
+  symbol: string; //z.B. "btc"
   name: string; //z.B. "Bitcoin"
   status: number; // gibt an, ob das Asset im Besitz (owned) ist oder nur als Angebot (offered) oder einen Sonderstatus (total oder usd) siehe enums
   logo_url: string;
@@ -31,15 +32,16 @@ export class Asset {
   amount_history: number[];
   amount_timestamps: Date[];
 
-  constructor(id, name, status, logo_url, price,
+  constructor(id, symbol, name, status, logo_url, price,
     first_trade, history, amount_history: any[], amount_timestamps: any[]) {
     this.id = id;
+    this.symbol = symbol;
     this.name = name;
     this.status = Number(status);
     this.logo_url = logo_url;
     this.price = Number(price);
     this.first_trade = new Date(first_trade);
-    
+
     this.history = [
       { prices: [], timestamps: [] },
       { prices: [], timestamps: [] },
@@ -57,7 +59,7 @@ export class Asset {
   }
 
   public clone(): Asset {
-    return new Asset(this.id, this.name, this.status, this.logo_url, this.price, this.first_trade, this.history, this.amount_history, this.amount_timestamps);
+    return new Asset(this.id, this.symbol, this.name, this.status, this.logo_url, this.price, this.first_trade, this.history, this.amount_history, this.amount_timestamps);
   }
 
 }

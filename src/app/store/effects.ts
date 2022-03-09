@@ -7,7 +7,7 @@ import { Store, select } from '@ngrx/store';
 import { DataService } from 'src/app/services/data.service';
 import * as fromActions from 'src/app/store/actions';
 import * as fromSelectors from 'src/app/store/selectors';
-import { STATUS } from '../logic/global_constants';
+import { STATUS } from './global_constants';
 
 @Injectable()
 export class Effects {

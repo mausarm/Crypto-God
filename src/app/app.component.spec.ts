@@ -14,7 +14,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { MainComponent } from './components/main/main.component';
 import { SettingsBarComponent } from './components/settings-bar/settings-bar.component';
 import { SparklineComponent } from './components/sparkline/sparkline.component';
-import { MOCK_APPSTATE } from './logic/mock_appstate';
+import { MOCK_APPSTATE } from './store/mock_appstate';
 
 describe('AppComponent', () => {
   let component: AppComponent;

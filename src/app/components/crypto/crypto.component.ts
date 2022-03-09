@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 
 import * as fromActions from 'src/app/store/actions';
 
-import { Asset } from '../../logic/asset';
+import { Asset } from '../../store/asset';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 

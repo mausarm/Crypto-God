@@ -3,7 +3,7 @@ import { Chart, ChartDataSets, ChartOptions } from 'chart.js';
 import { formatDate } from '@angular/common';
 import { Color, Label } from 'ng2-charts';
 
-import { Asset } from '../../logic/asset';
+import { Asset } from '../../store/asset';
 
 @Component({
   selector: 'app-chart',

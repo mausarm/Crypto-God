@@ -1,5 +1,5 @@
 import { INITIAL_APP_STATE } from "../store/initial_state";
-import { MOCK_APPSTATE } from "./mock_appstate";
+import { MOCK_APPSTATE } from "../store/mock_appstate";
 import { parseJsonToAppstate } from "./parse_json_to_appstate";
 
 describe('parseJsonToAppstate', () => {

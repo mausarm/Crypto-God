@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { RANGES } from 'src/app/logic/global_constants';
-import { MOCK_APPSTATE } from 'src/app/logic/mock_appstate';
+import { RANGES } from 'src/app/store/global_constants';
+import { MOCK_APPSTATE } from 'src/app/store/mock_appstate';
 
 import { CryptoComponent } from './crypto.component';
 import { SparklineComponent } from '../sparkline/sparkline.component';

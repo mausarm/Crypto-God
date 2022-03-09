@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideMockStore } from '@ngrx/store/testing';
-import { MOCK_APPSTATE } from 'src/app/logic/mock_appstate';
+import { MOCK_APPSTATE } from 'src/app/store/mock_appstate';
 
 import { ChoiceComponent } from './choice.component';
 

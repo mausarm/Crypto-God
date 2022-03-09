@@ -1,5 +1,5 @@
-import { Asset } from 'src/app/logic/asset';
-import { RANGES, STATUS } from './global_constants';
+import { Asset } from 'src/app/store/asset';
+import { RANGES, STATUS } from '../store/global_constants';
 
 export function updateUSDhistory(assets: ReadonlyArray<Asset>): Asset {
   //Der Preisverlauf von USD auf konstant 1 setzen

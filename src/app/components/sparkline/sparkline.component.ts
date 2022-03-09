@@ -2,7 +2,7 @@ import { Component, OnInit, OnChanges, Input } from '@angular/core';
 import { Chart, ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 
-import { Asset } from '../../logic/asset';
+import { Asset } from '../../store/asset';
 
 @Component({
   selector: 'app-sparkline',

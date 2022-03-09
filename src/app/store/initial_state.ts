@@ -1,8 +1,9 @@
-import { Asset } from '../logic/asset';
-import { RADIOCHECKED, RANGES, STATUS } from '../logic/global_constants';
+import { Asset } from './asset';
+import { RADIOCHECKED, RANGES, STATUS } from './global_constants';
 
 export const INITIAL_ASSETS: ReadonlyArray<Asset> = [
         new Asset(
+            'TOTAL',
             'TOTAL',
             'Total Assets',
             STATUS.total,
@@ -15,6 +16,7 @@ export const INITIAL_ASSETS: ReadonlyArray<Asset> = [
         ),
         new Asset(
             'USD',
+            'USD',
             'US Dollar',
             STATUS.usd,
             '../../../assets/dollaricon.png',
@@ -25,10 +27,11 @@ export const INITIAL_ASSETS: ReadonlyArray<Asset> = [
             [new Date()]
         ),
         new Asset(
-            'BTC',
+            'bitcoin',
+            'btc',
             'Bitcoin',
             STATUS.owned,
-            'https://s3.us-east-2.amazonaws.com/nomics-api/static/images/currencies/btc.svg',
+            '',
             0,
             null,
             [{ prices: [], timestamps: [] }, { prices: [], timestamps: [] }, { prices: [], timestamps: [] }, { prices: [], timestamps: [] }, { prices: [], timestamps: [] }],
@@ -36,7 +39,8 @@ export const INITIAL_ASSETS: ReadonlyArray<Asset> = [
             [new Date()]
         ),
         new Asset(
-            'ETH',
+            'ethereum',
+            'eth',
             'Ethereum',
             STATUS.owned,
             '',
@@ -50,7 +54,7 @@ export const INITIAL_ASSETS: ReadonlyArray<Asset> = [
 
 
 export const INITIAL_UI_STATE = {
-    chosenAssetId: "BTC",
+    chosenAssetId: "bitcoin",
     range: RANGES.month,
     radioChecked: RADIOCHECKED.none,
     isLoading: true,

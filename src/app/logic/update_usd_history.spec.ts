@@ -1,5 +1,5 @@
-import { RANGES } from "./global_constants";
-import { MOCK_APPSTATE } from "./mock_appstate";
+import { RANGES } from "../store/global_constants";
+import { MOCK_APPSTATE } from "../store/mock_appstate";
 import { updateUSDhistory } from "./update_usd_history";
 
 describe('updateUSDHistory', () => {

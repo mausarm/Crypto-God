@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChartsModule } from 'ng2-charts';
-import { RANGES } from 'src/app/logic/global_constants';
-import { MOCK_APPSTATE } from 'src/app/logic/mock_appstate';
+import { RANGES } from 'src/app/store/global_constants';
+import { MOCK_APPSTATE } from 'src/app/store/mock_appstate';
 
 import { SparklineComponent } from './sparkline.component';
 

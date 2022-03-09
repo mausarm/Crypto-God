@@ -41,7 +41,7 @@
                 <div cdkDropList [cdkDropListData]="assets" (cdkDropListDropped)="drop($event)">
                     <div class="drag-unit" cdkDrag *ngFor="let asset of assets" [cdkDragData]="asset">
                         <mat-icon cdkDragHandle>swap_vert</mat-icon>
-                        <app-crypto [asset]="asset" [range]="range$ | async"
+                        <app-crypto data-cy="crypto" [asset]="asset" [range]="range$ | async"
                             [isChosen]="asset.id === (chosenAsset$ | async).id"
                             [isAlert]="(alertAssetId$ | async) === asset.id">
                         </app-crypto>

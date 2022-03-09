@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
 import { MainComponent } from './main.component';
-import { MOCK_APPSTATE } from 'src/app/logic/mock_appstate';
+import { MOCK_APPSTATE } from 'src/app/store/mock_appstate';
 import { HeaderComponent } from '../header/header.component';
 import { ChartComponent } from '../chart/chart.component';
 import { CryptoComponent } from '../crypto/crypto.component';

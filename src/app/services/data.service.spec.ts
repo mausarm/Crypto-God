@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { DataService } from './data.service';
-import { MOCK_APPSTATE } from '../logic/mock_appstate';
+import { MOCK_APPSTATE } from '../store/mock_appstate';
 import { INITIAL_ASSETS } from '../store/initial_state';
 import { of } from 'rxjs';
 

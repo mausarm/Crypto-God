@@ -4,10 +4,10 @@ import { Store, select } from '@ngrx/store';
 
 import * as fromSelectors from 'src/app/store/selectors';
 import * as fromActions from 'src/app/store/actions';
-import { STATUS, RADIOCHECKED } from 'src/app/logic/global_constants';
+import { STATUS, RADIOCHECKED } from 'src/app/store/global_constants';
 import { Subscription, timer } from 'rxjs';
-import { Asset } from 'src/app/logic/asset';
-import { MOCK_APPSTATE } from 'src/app/logic/mock_appstate';
+import { Asset } from 'src/app/store/asset';
+import { MOCK_APPSTATE } from 'src/app/store/mock_appstate';
 
 @Component({
   selector: 'app-main',
@@ -46,11 +46,11 @@ export class MainComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(fromActions.loadState());
 
-    this.subscription = timer(0, 60000).subscribe(n => 
+    this.subscription = timer(0, 60000).subscribe(n =>
       this.store.dispatch(fromActions.updateAssets())
     )
-    
-    
+
+
     this.nextNewAssetDate$.subscribe(nextNewAssetDate => {
       const delay = Math.max(nextNewAssetDate.getTime() - (new Date()).getTime() , 0);
       this.timeout = setTimeout(
@@ -63,7 +63,7 @@ export class MainComponent implements OnInit, OnDestroy {
     });
 
     this.shownAssets$.subscribe((shownAssets) => this.shownAssets = shownAssets);
-    
+
   }
 
   ngOnDestroy(): void {

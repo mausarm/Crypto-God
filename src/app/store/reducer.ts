@@ -1,7 +1,7 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import { INITIAL_ASSETS, INITIAL_UI_STATE, INITIAL_OFFER_STATE } from 'src/app/store/initial_state';
 import * as fromActions from 'src/app/store/actions';
-import { RADIOCHECKED, STATUS } from '../logic/global_constants';
+import { RADIOCHECKED, STATUS } from './global_constants';
 import { calculateTotalAssets } from '../logic/calculate_total';
 import { mergedInto } from '../logic/merged_into';
 

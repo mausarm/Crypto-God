@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 
 import * as fromActions from 'src/app/store/actions';
 
-import { RADIOCHECKED } from 'src/app/logic/global_constants';
+import { RADIOCHECKED } from 'src/app/store/global_constants';
 import { trigger, state, style, animate, transition, keyframes } from '@angular/animations';
 import { Subscription, timer } from 'rxjs';
 

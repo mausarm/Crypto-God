@@ -1,4 +1,4 @@
-import { Asset } from 'src/app/logic/asset';
+import { Asset } from 'src/app/store/asset';
 import { AppState } from '../store/app_state';
 import { INITIAL_ASSETS, INITIAL_OFFER_STATE, INITIAL_QUEST_STATE, INITIAL_UI_STATE } from '../store/initial_state';
 
@@ -17,6 +17,7 @@ export function parseJsonToAppstate(json: string): AppState {
       appState.assets = d.assets.map(a =>
         new Asset(
           a.id,
+          a.symbol,
           a.name,
           a.status,
           a.logo_url,
@@ -42,6 +43,7 @@ export function parseJsonToAppstate(json: string): AppState {
       if (d.offerState.lastNewAsset) {
         appState.offerState.lastNewAsset = new Asset(
           d.offerState.lastNewAsset.id,
+          d.offerState.lastNewAsset.symbol,
           d.offerState.lastNewAsset.name,
           d.offerState.lastNewAsset.status,
           d.offerState.lastNewAsset.logo_url,

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Asset } from 'src/app/logic/asset';
+import { Asset } from 'src/app/store/asset';
 import { AppState } from './app_state';
 
 export const addAsset = createAction(

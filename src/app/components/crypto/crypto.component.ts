@@ -5,6 +5,7 @@ import * as fromActions from 'src/app/store/actions';
 
 import { Asset } from '../../store/asset';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { ASSET_ID } from 'src/app/store/global_constants';
 
 
 @Component({
@@ -26,6 +27,8 @@ export class CryptoComponent {
   @Input() range: number;
   @Input() isChosen: boolean;
   @Input() isAlert: boolean;
+
+  ASSET_ID = ASSET_ID;
 
   constructor(private store: Store) { }
 

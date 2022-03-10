@@ -1,10 +1,10 @@
 import { Asset } from './asset';
-import { RADIOCHECKED, RANGES, STATUS } from './global_constants';
+import { ASSET_ID, RADIOCHECKED, RANGES, STATUS } from './global_constants';
 
 export const INITIAL_ASSETS: ReadonlyArray<Asset> = [
         new Asset(
-            'TOTAL',
-            'TOTAL',
+            ASSET_ID.total,
+            ASSET_ID.total,
             'Total Assets',
             STATUS.total,
             '../../../assets/dollaricon.png',
@@ -15,8 +15,8 @@ export const INITIAL_ASSETS: ReadonlyArray<Asset> = [
             [new Date()]
         ),
         new Asset(
-            'USD',
-            'USD',
+            ASSET_ID.usd,
+            ASSET_ID.usd,
             'US Dollar',
             STATUS.usd,
             '../../../assets/dollaricon.png',
@@ -27,7 +27,7 @@ export const INITIAL_ASSETS: ReadonlyArray<Asset> = [
             [new Date()]
         ),
         new Asset(
-            'bitcoin',
+            ASSET_ID.bitcoin,
             'btc',
             'Bitcoin',
             STATUS.owned,

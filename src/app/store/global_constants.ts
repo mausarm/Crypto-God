@@ -1,4 +1,3 @@
-import { Asset } from './asset';
 
 export enum RANGES { day, week, month, year, all }
 
@@ -17,4 +16,9 @@ export const RADIOCHECKED = {
     none: 'none'
 }
 
+export const ASSET_ID = {
+  total: 'total',
+  usd: 'usd',
+  bitcoin: 'bitcoin',
+}
 

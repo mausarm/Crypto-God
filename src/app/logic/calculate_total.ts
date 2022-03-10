@@ -1,5 +1,5 @@
 import { Asset } from 'src/app/store/asset';
-import { RANGES, STATUS } from '../store/global_constants';
+import { ASSET_ID, RANGES, STATUS } from '../store/global_constants';
 
 export function calculateTotalAssets(assets: ReadonlyArray<Asset>): Asset {
 
@@ -29,7 +29,7 @@ export function calculateTotalAssets(assets: ReadonlyArray<Asset>): Asset {
   function setTimestamps(): void {
 
     for (let range = 0; range <= RANGES.all; range++) {
-      total.history[range].timestamps = assets.filter((a) => a.id === 'BTC')[0].history[range].timestamps.slice();
+      total.history[range].timestamps = assets.filter((a) => a.id === ASSET_ID.bitcoin)[0].history[range].timestamps.slice();
     }
 
     //History[all] auf entsprechenden Ausschnitt setzen

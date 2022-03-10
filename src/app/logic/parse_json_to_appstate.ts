@@ -14,10 +14,11 @@ export function parseJsonToAppstate(json: string): AppState {
   if (d) {
 
     if (d.assets) {
+
       appState.assets = d.assets.map(a =>
         new Asset(
-          a.id,
-          a.symbol,
+          String(a.id).toLowerCase(), //für den Wechsel zu CoinGecko
+          a.symbol ?? a.id, //für den Wechsel zu CoinGecko
           a.name,
           a.status,
           a.logo_url,
@@ -30,7 +31,7 @@ export function parseJsonToAppstate(json: string): AppState {
     };
 
     if (d.uiState) {
-      appState.uiState.chosenAssetId = d.uiState.chosenAssetId ?? INITIAL_UI_STATE.chosenAssetId;
+      appState.uiState.chosenAssetId = String(d.uiState.chosenAssetId).toLowerCase() ?? INITIAL_UI_STATE.chosenAssetId;
       appState.uiState.range = +d.uiState.range ?? INITIAL_UI_STATE.range;
       appState.uiState.radioChecked = d.uiState.radioChecked ?? INITIAL_UI_STATE.radioChecked;
       appState.uiState.isLoading = d.uiState.isLoading ?? INITIAL_UI_STATE.isLoading;
@@ -42,8 +43,8 @@ export function parseJsonToAppstate(json: string): AppState {
     if (d.offerState) {
       if (d.offerState.lastNewAsset) {
         appState.offerState.lastNewAsset = new Asset(
-          d.offerState.lastNewAsset.id,
-          d.offerState.lastNewAsset.symbol,
+          String(d.offerState.lastNewAsset.id).toLowerCase(), //für den Wechsel zu CoinGecko
+          d.offerState.lastNewAsset.symbol ?? d.offerState.lastNewAsset.id, //für den Wechsel zu CoinGecko
           d.offerState.lastNewAsset.name,
           d.offerState.lastNewAsset.status,
           d.offerState.lastNewAsset.logo_url,

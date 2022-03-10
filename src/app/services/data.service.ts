@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, timer, throwError, from, combineLatest } from 'rxjs';
-import { switchMap, concatMapTo, retryWhen, delay, mergeMap, concatMap, toArray, map } from 'rxjs/operators';
+import { switchMap, concatMapTo, retryWhen, delay, mergeMap, concatMap, toArray, map, tap } from 'rxjs/operators';
 
 import { Asset } from '../store/asset';
-import { RANGES, STATUS } from '../store/global_constants';
+import { ASSET_ID, RANGES, STATUS } from '../store/global_constants';
 import { AppState } from '../store/app_state';
 import { parseJsonToAppstate } from '../logic/parse_json_to_appstate';
 
@@ -56,7 +56,7 @@ export class DataService {
     let retries = 3;
     return timer(this.getDelayForNextAPIRequest())
       .pipe(
-        concatMapTo(this.getAllAssetsFromAPI(100)),
+        concatMapTo(this.getAllAssetsFromAPI(assets.length + 100)),
         retryWhen(errors => errors
           .pipe(
             delay(this.getDelayForNextAPIRequest()),
@@ -116,7 +116,6 @@ export class DataService {
 
   private getSparklinesFromAPI(assets: ReadonlyArray<Asset>): Observable<ReadonlyArray<Asset>> {
     return from(assets).pipe(
-
       concatMap(asset =>
         combineLatest([
           of(asset),
@@ -158,7 +157,7 @@ export class DataService {
   private getSparklineFromAPI(asset: Asset, range: number): Observable<any> {
 
     //bei TOTAL und USD gibt es keine Sparkline von API
-    if (asset.id === "TOTAL" || asset.id === "USD") {
+    if (asset.id === ASSET_ID.total || asset.id === ASSET_ID.usd) {
       return of(asset.history[range]);
     }
 
@@ -180,13 +179,14 @@ export class DataService {
 
             if (assetData) {
               sparkline.prices = assetData.prices.map(x => Number(x[1]));
-              sparkline.timestamps = assetData.timestamps.map(x => new Date(x[0]));
+              sparkline.timestamps = assetData.prices.map(x => new Date(x[0]));
               sparkline.prices.push(asset.price); //aktuellsten Preis per Hand dazu
               sparkline.timestamps.push(new Date());
             }
 
             return of(sparkline);
-          })
+          }
+        )
       );
   }
 

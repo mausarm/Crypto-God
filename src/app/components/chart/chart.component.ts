@@ -97,10 +97,10 @@ export class ChartComponent implements OnInit, OnChanges {
       data: this.asset.history[this.range].prices.slice()
     }];
     const duration = new Date().getTime() - this.asset.history[this.range].timestamps[0].getTime();
-    if (duration < 24*3600000) {
+    if (duration < 25*3600000) {
       this.chartLabels = this.asset.history[this.range].timestamps.map(d => formatDate(d, 'HH:mm', 'en-US'));
     }
-    else if (duration < 7*24*3600000) {
+    else if (duration < 8*24*3600000) {
       this.chartLabels = this.asset.history[this.range].timestamps.map(d => formatDate(d, 'MM-dd HH', 'en-US')+"h");
     }
     else {

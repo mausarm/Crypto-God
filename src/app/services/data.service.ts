@@ -97,16 +97,16 @@ export class DataService {
 
 
   private getDelayForNextAPIRequest(): number {
-    //nötig, weil nomics nur einen Request pro Sekunde verarbeitet (deprecated weil jetzt CoinGecko API)
+    //war nötig, weil nomics nur einen Request pro Sekunde verarbeitet (deprecated weil jetzt CoinGecko API)
     let delay: number;
     const jetzt = new Date();
     if (jetzt > this.nextPossibleAPIRequest) {
       delay = 0;
-      this.nextPossibleAPIRequest = new Date(new Date().getTime() + 10);
+      this.nextPossibleAPIRequest = new Date(new Date().getTime() + 1);
     }
     else {
       delay = this.nextPossibleAPIRequest.getTime() - jetzt.getTime();
-      this.nextPossibleAPIRequest = new Date(this.nextPossibleAPIRequest.getTime() + 10);
+      this.nextPossibleAPIRequest = new Date(this.nextPossibleAPIRequest.getTime() + 1);
     }
     return delay;
   }

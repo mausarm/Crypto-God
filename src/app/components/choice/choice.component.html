@@ -6,20 +6,20 @@
         Choose a new crypto for your portfolio:
     </div>
 
-   
+
     <div class="buttons">
 
         <button *ngFor="let offeredAsset of this.offeredAssets; let i = index" (click)="choose(offeredAsset)">
             <img class="logo" src={{offeredAsset.logo_url}}>
             {{offeredAsset.name}} <br>
             {{(1000/(offeredAsset.price)).toPrecision(6)}}
-            {{offeredAsset.id.substring(0,5)}}
+            {{offeredAsset.symbol.substring(0,5)}}
         </button>
-       
+
     </div>
 </div>
 
-<div class="chosen-container" *ngIf="this.offeredAssets.length === 0"> 
+<div class="chosen-container" *ngIf="this.offeredAssets.length === 0">
 
     <div class="header">
         Good Choice! <br>
@@ -30,7 +30,7 @@
         <img class="big-logo" src={{this.lastNewAsset.logo_url}}>
             {{this.lastNewAsset.name}} <br>
             {{this.lastNewAsset.amount_history[0].toPrecision(6)}}
-            {{this.lastNewAsset.id.substring(0,5)}} 
+            {{this.lastNewAsset.symbol.substring(0,5)}}
     </div>
 
     <div class="header">

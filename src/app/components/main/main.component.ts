@@ -30,6 +30,8 @@ export class MainComponent implements OnInit, OnDestroy {
   nextNewAssetDate$ = this.store.pipe(select(fromSelectors.selectNextNewAssetDate));
   alertAssetId$ = this.store.pipe(select(fromSelectors.selectAlertAssetId));
   errorMessage$ = this.store.pipe(select(fromSelectors.selectErrorMessage));
+  quest$ = this.store.pipe(select(fromSelectors.selectQuest));
+
 
 
   RADIOCHECKED = RADIOCHECKED; //anscheinend nötig für enum im template

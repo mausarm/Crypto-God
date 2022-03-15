@@ -1,5 +1,6 @@
 import { Asset } from './asset';
-import { ASSET_ID, RADIOCHECKED, RANGES, STATUS } from './global_constants';
+import { ASSET_ID, QUEST_DURATION, QUEST_TYPE, RADIOCHECKED, RANGES, STATUS } from './global_constants';
+import { Quest } from './quest';
 
 export const INITIAL_ASSETS: ReadonlyArray<Asset> = [
         new Asset(
@@ -69,7 +70,7 @@ export const INITIAL_OFFER_STATE = {
 }
 
 export const INITIAL_QUEST_STATE = {
-    quest: undefined
+    quest: new Quest( QUEST_TYPE.gain10usd, QUEST_DURATION.tenMin )
 }
 
 export const INITIAL_APP_STATE = {

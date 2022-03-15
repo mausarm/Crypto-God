@@ -26,6 +26,7 @@ import { SparklineComponent } from './components/sparkline/sparkline.component';
 import { SettingsBarComponent } from './components/settings-bar/settings-bar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChoiceComponent } from './components/choice/choice.component';
+import { QuestComponent } from './components/quest/quest.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { ChoiceComponent } from './components/choice/choice.component';
     SparklineComponent,
     SettingsBarComponent,
     ChoiceComponent,
+    QuestComponent,
     
   ],
   imports: [

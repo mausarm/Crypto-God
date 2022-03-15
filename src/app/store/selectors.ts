@@ -1,5 +1,5 @@
 import { createSelector, createFeatureSelector } from "@ngrx/store";
-import { AppState, UiState, OfferState } from 'src/app/store/app_state';
+import { AppState, UiState, OfferState, QuestState } from 'src/app/store/app_state';
 import { Asset } from 'src/app/store/asset';
 import { STATUS } from "./global_constants";
 
@@ -8,6 +8,9 @@ export const selectAssets = createFeatureSelector< ReadonlyArray<Asset>>('assets
 export const selectUiState = createFeatureSelector< UiState>('uiState');
 
 export const selectOfferState = createFeatureSelector< OfferState>('offerState');
+
+export const selectQuestState = createFeatureSelector< QuestState>('questState');
+
 
 export const selectAppState = createSelector(
   (appState: AppState) => appState,
@@ -89,4 +92,9 @@ export const selectAlertAssetId = createSelector(
 export const selectErrorMessage = createSelector(
   selectUiState,
   (uiState: UiState) => uiState.errorMessage
+);
+
+export const selectQuest = createSelector(
+  selectQuestState,
+  (questState: QuestState) => questState.quest
 );

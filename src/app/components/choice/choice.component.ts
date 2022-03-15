@@ -22,10 +22,6 @@ export class ChoiceComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   public dateNow = new Date();
-  milliSecondsInASecond = 1000;
-  hoursInADay = 24;
-  minutesInAnHour = 60;
-  SecondsInAMinute = 60;
 
   public timeDifference;
   public seconds;
@@ -41,10 +37,10 @@ export class ChoiceComponent implements OnInit, OnDestroy {
   }
 
   private allocateTimeUnits(timeDifference) {
-    this.seconds = Math.floor((timeDifference) / (this.milliSecondsInASecond) % this.SecondsInAMinute);
-    this.minutes = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour) % this.SecondsInAMinute);
-    this.hours = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour * this.SecondsInAMinute) % this.hoursInADay);
-    this.days = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour * this.SecondsInAMinute * this.hoursInADay));
+    this.seconds = Math.floor((timeDifference) / (1000) % 60);
+    this.minutes = Math.floor((timeDifference) / (1000 * 60) % 60);
+    this.hours = Math.floor((timeDifference) / (1000 * 60 * 60) % 24);
+    this.days = Math.floor((timeDifference) / (1000 * 60 * 60 * 24));
   }
 
   ngOnInit() {

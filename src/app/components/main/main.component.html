@@ -26,10 +26,9 @@
                 [lastNewAsset]="lastNewAsset$ | async" [nextNewAssetDate]="nextNewAssetDate$ | async">
             </app-choice>
 
-            <div class="card" *ngSwitchCase="RADIOCHECKED.quest">
-                Sorry! <br>
-                Quests are not implemented yet.
-            </div>
+            <app-quest *ngSwitchCase="RADIOCHECKED.quest" [assets]="assets$ | async">
+
+            </app-quest>
 
 
             <app-chart *ngSwitchDefault [asset]="chosenAsset$ | async" [range]="range$ | async">

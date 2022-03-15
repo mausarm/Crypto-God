@@ -2,7 +2,7 @@
 export enum RANGES { day, week, month, year, all }
 
 
-export enum STATUS { owned, total, usd, offered}
+export enum STATUS { owned, total, usd, offered }
 
 
 export const RADIOCHECKED = {
@@ -22,3 +22,8 @@ export const ASSET_ID = {
   bitcoin: 'bitcoin',
 }
 
+export enum QUEST_TYPE { gain10usd, beatBitcoin, beatHodler, beatAverage }
+
+export enum QUEST_STATUS { prestart, active, won, lost }
+
+export enum QUEST_DURATION { tenMin, hour, day }

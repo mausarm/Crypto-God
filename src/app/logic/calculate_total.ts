@@ -98,6 +98,7 @@ export function calculateTotalAssets(assets: ReadonlyArray<Asset>): Asset {
     }
   }
 
+  //findet den kürzesten Zeitraum, in dem das date noch enthalten ist
   function getRange(date: Date, asset: Asset): RANGES {
     let range = RANGES.all;
     for (let r = RANGES.all; r >= 0; r--) {

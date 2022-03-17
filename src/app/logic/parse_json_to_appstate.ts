@@ -61,9 +61,27 @@ export function parseJsonToAppstate(json: string): AppState {
     }
 
     if (d.quest) {
-
-
-
+      appState.quest = new Quest(
+        d.quest.type,
+        Number(d.quest.duration),
+        d.quest.status,
+        new Date(d.quest.endTime),
+        d.quest.startAssets.map(a =>
+          new Asset(
+            a.id,
+            a.symbol,
+            a.name,
+            a.status,
+            a.logo_url,
+            a.price,
+            a.first_trade,
+            a.history,
+            a.amount_history,
+            a.amount_timestamps)
+        ),
+        Number(d.quest.score),
+        Number(d.quest.target)
+      )
     }
   }
 

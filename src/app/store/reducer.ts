@@ -259,6 +259,11 @@ export const offerStateReducer = createReducer(
 export const questReducer = createReducer(
   INITIAL_QUEST,
 
+  on(fromActions.loadStateSuccess, (quest, { loadedState }) => ({
+    ...loadedState.quest
+  })),
+
+
   on(fromActions.startQuest, (quest, { startAssets }) => {
 
     const result: Quest = {
@@ -271,20 +276,23 @@ export const questReducer = createReducer(
     switch (quest.type) {
       case QUEST_TYPE.gainTotal:
         result.score = 0;
-        result.target = 10;
+        result.target = 100;
         break;
     }
 
     return result;
   }),
 
-  on(fromActions.updateAssetsSuccess, (quest, { updatedAssets }) => {
+  on(fromActions.updateQuest, (quest, { assets }) => {
 
     const result: Quest = { ...quest };
 
     if (quest.status === QUEST_STATUS.active) {
-      result.score = calculateQuestScore(quest, updatedAssets);
-      result.target = calculateQuestTarget(quest, updatedAssets);
+      result.score = calculateQuestScore(quest, assets);
+      result.target = calculateQuestTarget(quest, assets);
+      if (quest.endTime < new Date()) {
+        result.status = (result.score > result.target)? QUEST_STATUS.won : QUEST_STATUS.lost
+      }
     }
 
     return result;

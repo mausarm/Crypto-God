@@ -93,3 +93,7 @@ export const startQuest = createAction(
   props<{ startAssets: Asset[] }>()
 );
 
+export const updateQuest = createAction(
+  '[effect] Update Quest',
+  props<{ assets: ReadonlyArray<Asset> }>()
+);

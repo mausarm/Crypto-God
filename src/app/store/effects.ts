@@ -7,7 +7,7 @@ import { Store, select } from '@ngrx/store';
 import { DataService } from 'src/app/services/data.service';
 import * as fromActions from 'src/app/store/actions';
 import * as fromSelectors from 'src/app/store/selectors';
-import { STATUS } from './global_constants';
+import { ASSET_ID, STATUS } from './global_constants';
 
 @Injectable()
 export class Effects {
@@ -46,6 +46,7 @@ export class Effects {
                 fromActions.sellAsset,
                 fromActions.updateAssetsSuccess,
                 fromActions.startQuest,
+                fromActions.updateQuest,
             ]),
             withLatestFrom(this.store.pipe(select(fromSelectors.selectAppState))),
             tap(([action, appState]) => this.dataService.storeState(appState))
@@ -72,6 +73,14 @@ export class Effects {
         )
     );
 
+    updateAssetsSuccess$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(fromActions.updateAssetsSuccess),
+            withLatestFrom(this.store.pipe(select(fromSelectors.selectAssets))),
+            map(([action, assets]) => fromActions.updateQuest({ assets })
+            )
+        )
+    );
 
     findNewOffer$ = createEffect(() =>
         this.actions$.pipe(
@@ -97,7 +106,7 @@ export class Effects {
                 const usd = assets.find(a => a.status === STATUS.usd);
                 if (usd.amount_history[usd.amount_history.length - 1] === 0) {
                     //AlertAction feuern
-                    return of(fromActions.alertNotEnoughOfAsset({ assetId: "USD" }));
+                    return of(fromActions.alertNotEnoughOfAsset({ assetId: ASSET_ID.usd }));
                 }
                 else {
                     return EMPTY;

@@ -35,6 +35,10 @@ export class QuestComponent implements OnInit, OnDestroy {
   private getTimeDifference() {
     if (this.quest.status === QUEST_STATUS.active) {
     this.timeDifference = this.quest.endTime.getTime() - new Date().getTime();
+    if(this.timeDifference <= 0) {
+      this.store.dispatch(fromActions.updateQuest({ assets: this.assets }));
+      this.timeDifference = 0;
+    }
     this.allocateTimeUnits(this.timeDifference);
     }
 

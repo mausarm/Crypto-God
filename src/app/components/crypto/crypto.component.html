@@ -35,7 +35,7 @@
     </div>
 
     <div [@alert]="isAlert? 'alert' : 'normal'" class="asset-numbers" *ngIf="(asset.id ===ASSET_ID.usd)">
-        {{(asset.amount_history[0]) | number:'1.0-0'}} $
+        {{(asset.amount_history[asset.amount_history.length-1]) | number:'1.0-0'}} $
     </div>
 
 

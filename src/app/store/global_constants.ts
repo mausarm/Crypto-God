@@ -22,8 +22,17 @@ export const ASSET_ID = {
   bitcoin: 'bitcoin',
 }
 
-export enum QUEST_TYPE { gain10usd, beatBitcoin, beatHodler, beatAverage }
+export const QUEST_TYPE = {
+  gainTotal: 'gainTotal',
+  beatBitcoin: 'beatBitcoin',
+  beatHodler: 'beatHodler',
+  beatAverage: 'beatAverage'
+}
 
-export enum QUEST_STATUS { prestart, active, won, lost }
+export const QUEST_STATUS = {
+  prestart: 'prestart',
+  active: 'active',
+  won: 'won',
+  lost: 'lost'
+}
 
-export enum QUEST_DURATION { tenMin, hour, day }

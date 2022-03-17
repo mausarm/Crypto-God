@@ -1,9 +1,12 @@
 import { createReducer, on, Action } from '@ngrx/store';
-import { INITIAL_ASSETS, INITIAL_UI_STATE, INITIAL_OFFER_STATE, INITIAL_QUEST_STATE } from 'src/app/store/initial_state';
+import { INITIAL_ASSETS, INITIAL_UI_STATE, INITIAL_OFFER_STATE, INITIAL_QUEST } from 'src/app/store/initial_state';
 import * as fromActions from 'src/app/store/actions';
-import { RADIOCHECKED, STATUS } from './global_constants';
+import { QUEST_STATUS, QUEST_TYPE, RADIOCHECKED, STATUS } from './global_constants';
 import { calculateTotalAssets } from '../logic/calculate_total';
 import { mergedInto } from '../logic/merged_into';
+import { Quest } from './quest';
+import { calculateQuestScore } from '../logic/calculate_quest_score';
+import { calculateQuestTarget } from '../logic/calculate_quest_target';
 
 
 
@@ -253,7 +256,37 @@ export const offerStateReducer = createReducer(
 
 );
 
-export const questStateReducer = createReducer(
-  INITIAL_QUEST_STATE,
+export const questReducer = createReducer(
+  INITIAL_QUEST,
 
+  on(fromActions.startQuest, (quest, { startAssets }) => {
+
+    const result: Quest = {
+      ...quest,
+      status: QUEST_STATUS.active,
+      endTime: new Date(new Date().getTime() + quest.duration),
+      startAssets: startAssets
+    };
+
+    switch (quest.type) {
+      case QUEST_TYPE.gainTotal:
+        result.score = 0;
+        result.target = 10;
+        break;
+    }
+
+    return result;
+  }),
+
+  on(fromActions.updateAssetsSuccess, (quest, { updatedAssets }) => {
+
+    const result: Quest = { ...quest };
+
+    if (quest.status === QUEST_STATUS.active) {
+      result.score = calculateQuestScore(quest, updatedAssets);
+      result.target = calculateQuestTarget(quest, updatedAssets);
+    }
+
+    return result;
+  }),
 );

@@ -1,13 +1,14 @@
 import { Asset } from 'src/app/store/asset';
 import { AppState } from '../store/app_state';
-import { INITIAL_ASSETS, INITIAL_OFFER_STATE, INITIAL_QUEST_STATE, INITIAL_UI_STATE } from '../store/initial_state';
+import { INITIAL_ASSETS, INITIAL_OFFER_STATE, INITIAL_QUEST, INITIAL_UI_STATE } from '../store/initial_state';
+import { Quest } from '../store/quest';
 
 export function parseJsonToAppstate(json: string): AppState {
   const appState: AppState = {
     assets: INITIAL_ASSETS,
     uiState: { ...INITIAL_UI_STATE },
     offerState: { ...INITIAL_OFFER_STATE },
-    questState: { ...INITIAL_QUEST_STATE }
+    quest: { ...INITIAL_QUEST }
   };
   const d = JSON.parse(json);
 
@@ -57,6 +58,12 @@ export function parseJsonToAppstate(json: string): AppState {
           d.offerState.lastNewAsset.amount_timestamps);
       }
       appState.offerState.nextNewAssetDate = new Date(d.offerState.nextNewAssetDate ?? INITIAL_OFFER_STATE.nextNewAssetDate);
+    }
+
+    if (d.quest) {
+
+
+
     }
   }
 

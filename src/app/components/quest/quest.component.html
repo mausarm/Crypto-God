@@ -1,1 +1,14 @@
-<p>quest works!</p>
+<p> quest works!</p>
+
+<ul>
+<li>quest type: {{quest.type}}</li>
+<li *ngIf="quest.status !== QUEST_STATUS.prestart">score: {{quest.score}}</li>
+<li *ngIf="quest.status !== QUEST_STATUS.prestart">target: {{quest.target}}</li>
+</ul>
+
+<button *ngIf="quest.status === QUEST_STATUS.prestart" (click)="startQuest()">start quest</button>
+
+<div *ngIf="quest.status !== QUEST_STATUS.prestart">
+quest ends in <br>
+{{hours}}:{{minutes | number:'2.0-0'}}:{{seconds | number:'2.0-0'}} hours
+</div>

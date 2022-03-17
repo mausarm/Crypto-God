@@ -11,11 +11,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { assetReducer, uiStateReducer, offerStateReducer } from './store/reducer'; 
+import { assetReducer, uiStateReducer, offerStateReducer, questReducer } from './store/reducer';
 import { Effects } from 'src/app/store/effects'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment'; // Angular CLI environment
- 
+
 
 import { ChartComponent } from './components/chart/chart.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -40,13 +40,13 @@ import { QuestComponent } from './components/quest/quest.component';
     SettingsBarComponent,
     ChoiceComponent,
     QuestComponent,
-    
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    StoreModule.forRoot({assets: assetReducer, uiState: uiStateReducer, offerState: offerStateReducer}),
+    StoreModule.forRoot({assets: assetReducer, uiState: uiStateReducer, offerState: offerStateReducer, quest: questReducer}),
     EffectsModule.forRoot([Effects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
@@ -59,7 +59,7 @@ import { QuestComponent } from './components/quest/quest.component';
     MatProgressSpinnerModule,
     MatIconModule,
     BrowserAnimationsModule,
-    
+
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

@@ -6,7 +6,7 @@ export interface AppState {
     assets: ReadonlyArray<Asset>;
     uiState: UiState;
     offerState: OfferState;
-    questState: QuestState;
+    quest: Quest;
 }
 
 export interface UiState {
@@ -24,6 +24,3 @@ export interface OfferState {
     nextNewAssetDate: Date;
 }
 
-export interface QuestState {
-    quest: Quest;
-}

@@ -44,7 +44,8 @@ export class Effects {
                 fromActions.deleteOffered,
                 fromActions.findNewOfferSuccess,
                 fromActions.sellAsset,
-                fromActions.updateAssetsSuccess
+                fromActions.updateAssetsSuccess,
+                fromActions.startQuest,
             ]),
             withLatestFrom(this.store.pipe(select(fromSelectors.selectAppState))),
             tap(([action, appState]) => this.dataService.storeState(appState))
@@ -70,6 +71,7 @@ export class Effects {
             )
         )
     );
+
 
     findNewOffer$ = createEffect(() =>
         this.actions$.pipe(

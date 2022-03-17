@@ -26,7 +26,7 @@
                 [lastNewAsset]="lastNewAsset$ | async" [nextNewAssetDate]="nextNewAssetDate$ | async">
             </app-choice>
 
-            <app-quest *ngSwitchCase="RADIOCHECKED.quest" [assets]="assets$ | async">
+            <app-quest *ngSwitchCase="RADIOCHECKED.quest" [assets]="assets$ | async" [quest]="quest$ | async">
 
             </app-quest>
 

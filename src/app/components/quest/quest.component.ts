@@ -2,7 +2,10 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription, timer } from 'rxjs';
 import { Asset } from 'src/app/store/asset';
+import { QUEST_STATUS, QUEST_TYPE } from 'src/app/store/global_constants';
 import { Quest } from 'src/app/store/quest';
+import * as fromActions from 'src/app/store/actions';
+
 
 @Component({
   selector: 'app-quest',
@@ -14,21 +17,27 @@ export class QuestComponent implements OnInit, OnDestroy {
   @Input() quest: Quest;
   @Input() assets: Asset[];
 
+  QUEST_STATUS = QUEST_STATUS;
+  QUEST_TYPE = QUEST_TYPE;
+
   private subscription: Subscription;
 
   public dateNow = new Date();
 
-  public timeDifference;
-  public seconds;
-  public minutes;
-  public hours;
-  public days;
+  public timeDifference = 0;
+  public seconds = 0;
+  public minutes = 0;
+  public hours = 0;
+  public days = 0;
 
   constructor(private store: Store) { }
 
   private getTimeDifference() {
+    if (this.quest.status === QUEST_STATUS.active) {
     this.timeDifference = this.quest.endTime.getTime() - new Date().getTime();
     this.allocateTimeUnits(this.timeDifference);
+    }
+
   }
 
   private allocateTimeUnits(timeDifference) {
@@ -47,4 +56,8 @@ export class QuestComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  startQuest() {
+    this.store.dispatch(fromActions.startQuest({ startAssets: this.assets }));
+
+  }
 }

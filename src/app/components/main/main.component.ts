@@ -4,10 +4,9 @@ import { Store, select } from '@ngrx/store';
 
 import * as fromSelectors from 'src/app/store/selectors';
 import * as fromActions from 'src/app/store/actions';
-import { STATUS, RADIOCHECKED } from 'src/app/store/global_constants';
+import { RADIOCHECKED } from 'src/app/store/global_constants';
 import { Subscription, timer } from 'rxjs';
 import { Asset } from 'src/app/store/asset';
-import { MOCK_APPSTATE } from 'src/app/store/mock_appstate';
 
 @Component({
   selector: 'app-main',

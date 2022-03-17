@@ -88,3 +88,8 @@ export const errorNotification = createAction(
     props<{ errorMessage: string }>()
 );
 
+export const startQuest = createAction(
+  '[quest] Start Quest',
+  props<{ startAssets: Asset[] }>()
+);
+

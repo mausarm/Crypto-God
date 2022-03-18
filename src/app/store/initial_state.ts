@@ -1,5 +1,5 @@
 import { Asset } from './asset';
-import { ASSET_ID, QUEST_STATUS, QUEST_TYPE, RADIOCHECKED, RANGES, STATUS } from './global_constants';
+import { ASSET_ID, QUEST_DURATION, QUEST_STATUS, QUEST_TYPE, RADIOCHECKED, RANGES, STATUS } from './global_constants';
 import { Quest } from './quest';
 
 export const INITIAL_ASSETS: ReadonlyArray<Asset> = [
@@ -69,7 +69,7 @@ export const INITIAL_OFFER_STATE = {
     nextNewAssetDate: new Date(0) //undefined besser
 }
 
-export const INITIAL_QUEST = new Quest(QUEST_TYPE.gainTotal, 10*60*1000, QUEST_STATUS.prestart, new Date(0), [], 0, 0)
+export const INITIAL_QUEST = new Quest(QUEST_TYPE.gainTotal, QUEST_DURATION.tenMin, QUEST_STATUS.prestart, new Date(0), [], 0, 0)
 
 
 export const INITIAL_APP_STATE = {

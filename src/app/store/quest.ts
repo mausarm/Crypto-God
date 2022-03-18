@@ -3,7 +3,7 @@ import { Asset } from "./asset";
 export class Quest {
 
   type: string;
-  duration: number;
+  duration: string;
   status: string;
   endTime: Date;
   startAssets: Asset[];
@@ -12,7 +12,7 @@ export class Quest {
 
   constructor(
     type: string,
-    duration: number,
+    duration: string,
     status: string,
     endTime: Date,
     startAssets: Asset[],

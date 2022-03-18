@@ -1,5 +1,6 @@
 import { Asset } from 'src/app/store/asset';
 import { ASSET_ID, RANGES, STATUS } from '../store/global_constants';
+import { findRange } from './find_range';
 
 export function calculateTotalAssets(assets: ReadonlyArray<Asset>): Asset {
 
@@ -33,7 +34,7 @@ export function calculateTotalAssets(assets: ReadonlyArray<Asset>): Asset {
     }
 
     //History[all] auf entsprechenden Ausschnitt setzen
-    total.history[RANGES.all].timestamps = total.history[getRange(total.first_trade, total)].timestamps.filter((d) => d >= total.first_trade);
+    total.history[RANGES.all].timestamps = total.history[findRange(total.first_trade, total)].timestamps.filter((d) => d >= total.first_trade);
 
     //StartTimestamp in History[all] per Hand setzen
     total.history[RANGES.all].timestamps.unshift(total.first_trade);
@@ -71,9 +72,9 @@ export function calculateTotalAssets(assets: ReadonlyArray<Asset>): Asset {
           historyIndex = 1;
         }
 
-        let priceDataRange = getRange(total.history[range].timestamps[historyIndex], asset)
+        const priceDataRange = findRange(total.history[range].timestamps[historyIndex], asset)
         //den damaligen Amount und den Preis des Assets finden
-        let indexOfAmount = asset.amount_timestamps.map(
+        const indexOfAmount = asset.amount_timestamps.map(
           (d) => (d <= total.history[range].timestamps[historyIndex])
         ).lastIndexOf(true);
 
@@ -98,15 +99,6 @@ export function calculateTotalAssets(assets: ReadonlyArray<Asset>): Asset {
     }
   }
 
-  //findet den kürzesten Zeitraum, in dem das date noch enthalten ist
-  function getRange(date: Date, asset: Asset): RANGES {
-    let range = RANGES.all;
-    for (let r = RANGES.all; r >= 0; r--) {
-      if (asset.history[r].timestamps[0] <= date) {
-        range = r;
-      }
-    }
-    return range;
-  }
+
 
 }

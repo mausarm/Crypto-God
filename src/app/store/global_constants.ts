@@ -29,6 +29,12 @@ export const QUEST_TYPE = {
   beatAverage: 'beatAverage'
 }
 
+export const QUEST_DURATION = {
+  tenMin: '10min',
+  hour: '1h',
+  day: '24h',
+}
+
 export const QUEST_STATUS = {
   prestart: 'prestart',
   active: 'active',

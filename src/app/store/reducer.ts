@@ -1,7 +1,7 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import { INITIAL_ASSETS, INITIAL_UI_STATE, INITIAL_OFFER_STATE, INITIAL_QUEST } from 'src/app/store/initial_state';
 import * as fromActions from 'src/app/store/actions';
-import { QUEST_STATUS, QUEST_TYPE, RADIOCHECKED, STATUS } from './global_constants';
+import { QUEST_DURATION, QUEST_STATUS, QUEST_TYPE, RADIOCHECKED, STATUS } from './global_constants';
 import { calculateTotalAssets } from '../logic/calculate_total';
 import { mergedInto } from '../logic/merged_into';
 import { Quest } from './quest';
@@ -269,7 +269,6 @@ export const questReducer = createReducer(
     const result: Quest = {
       ...quest,
       status: QUEST_STATUS.active,
-      endTime: new Date(new Date().getTime() + quest.duration),
       startAssets: startAssets
     };
 
@@ -277,6 +276,18 @@ export const questReducer = createReducer(
       case QUEST_TYPE.gainTotal:
         result.score = 0;
         result.target = 100;
+        break;
+    }
+
+    switch (quest.duration) {
+      case QUEST_DURATION.tenMin:
+        result.endTime = new Date(new Date().getTime() + 10 * 60 * 1000);
+        break;
+      case QUEST_DURATION.hour:
+        result.endTime = new Date(new Date().getTime() + 60 * 60 * 1000);
+        break;
+      case QUEST_DURATION.day:
+        result.endTime = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
         break;
     }
 
@@ -291,7 +302,7 @@ export const questReducer = createReducer(
       result.score = calculateQuestScore(quest, assets);
       result.target = calculateQuestTarget(quest, assets);
       if (quest.endTime < new Date()) {
-        result.status = (result.score > result.target)? QUEST_STATUS.won : QUEST_STATUS.lost
+        result.status = (result.score > result.target) ? QUEST_STATUS.won : QUEST_STATUS.lost
       }
     }
 

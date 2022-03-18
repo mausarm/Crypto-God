@@ -28,7 +28,6 @@ export class QuestComponent implements OnInit, OnDestroy {
   public seconds = 0;
   public minutes = 0;
   public hours = 0;
-  public days = 0;
 
   constructor(private store: Store) { }
 
@@ -47,8 +46,7 @@ export class QuestComponent implements OnInit, OnDestroy {
   private allocateTimeUnits(timeDifference) {
     this.seconds = Math.floor((timeDifference) / (1000) % 60);
     this.minutes = Math.floor((timeDifference) / (1000 * 60) % 60);
-    this.hours = Math.floor((timeDifference) / (1000 * 60 * 60) % 24);
-    this.days = Math.floor((timeDifference) / (1000 * 60 * 60 * 24));
+    this.hours = Math.floor((timeDifference) / (1000 * 60 * 60) );
   }
 
   ngOnInit() {

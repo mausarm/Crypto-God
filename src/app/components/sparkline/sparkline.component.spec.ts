@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideMockStore } from '@ngrx/store/testing';
 import { ChartsModule } from 'ng2-charts';
 import { RANGES } from 'src/app/store/global_constants';
 import { MOCK_APPSTATE } from 'src/app/store/mock_appstate';
@@ -11,8 +13,9 @@ describe('SparklineComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      providers: [provideMockStore({})],
       declarations: [ SparklineComponent ],
-      imports: [ ChartsModule ]
+      imports: [ BrowserAnimationsModule, ChartsModule ]
     })
     .compileComponents();
   });

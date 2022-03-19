@@ -14,7 +14,13 @@ describe('calculateTotalAssets', () => {
 
   it('should hold the same last price in any history', () => {
     const total = calculateTotalAssets(SIMPLE_MOCKASSETS);
-    expect(total.history[RANGES.day].prices.pop()).toEqual(total.history[RANGES.all].prices.pop());
-    expect(total.history[RANGES.day].prices.pop()).toEqual(total.amount_history[0]);
+
+    expect(total.history[RANGES.day].prices[total.history[RANGES.day].prices.length - 1])
+    .withContext("compare day to all")
+    .toEqual(total.history[RANGES.all].prices[total.history[RANGES.all].prices.length - 1]);
+
+    expect(total.history[RANGES.day].prices[total.history[RANGES.day].prices.length - 1])
+    .withContext("compare day to amount_history")
+    .toEqual(total.amount_history[0]);
   });
 });

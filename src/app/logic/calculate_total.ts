@@ -30,7 +30,9 @@ export function calculateTotalAssets(assets: ReadonlyArray<Asset>): Asset {
   function setTimestamps(): void {
 
     for (let range = 0; range <= RANGES.all; range++) {
-      total.history[range].timestamps = assets.filter((a) => a.id === ASSET_ID.bitcoin)[0].history[range].timestamps.slice();
+      total.history[range].timestamps = assets.filter((a) => a.id === ASSET_ID.bitcoin)[0].history[range].timestamps.slice(0, -1);
+      //letzte Timestamp per Hand setzen, weil evtl. Bitcoin minimal hinterherhängt
+      total.history[range].timestamps.push(new Date());
     }
 
     //History[all] auf entsprechenden Ausschnitt setzen

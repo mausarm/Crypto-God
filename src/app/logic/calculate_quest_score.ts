@@ -1,5 +1,5 @@
 import { Asset } from "../store/asset";
-import { ASSET_ID, QUEST_TYPE } from "../store/global_constants";
+import { ASSET_ID, OFFER_VALUE, QUEST_TYPE, STATUS } from "../store/global_constants";
 import { Quest } from "../store/quest";
 import { findRange } from "./find_range";
 
@@ -9,7 +9,9 @@ export function calculateQuestScore(quest: Quest, assets: ReadonlyArray<Asset>):
 
   switch (quest.type) {
     case QUEST_TYPE.gainTotal:
-      const total = getPriceAfter(assets.find(a => a.id === ASSET_ID.total), quest.endTime);
+      let total = getPriceAfter(assets.find(a => a.id === ASSET_ID.total), quest.endTime);
+      //falls zwischendurch Offers angenommen wurden, werden diese Gewinne abgezogen
+      total -= (assets.filter(a => a.status === STATUS.owned).length - quest.startAssets.filter(a => a.status === STATUS.owned).length) * OFFER_VALUE;
       const startTotal = quest.startAssets.find(a => a.id === ASSET_ID.total).amount_history[0];
       result = total - startTotal;
       break;

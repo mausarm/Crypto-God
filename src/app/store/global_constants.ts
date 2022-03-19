@@ -4,6 +4,7 @@ export enum RANGES { day, week, month, year, all }
 
 export enum STATUS { owned, total, usd, offered }
 
+export const BUYSELL_VALUE = 1000;
 
 export const RADIOCHECKED = {
     day: RANGES.day.toString(),
@@ -21,6 +22,10 @@ export const ASSET_ID = {
   usd: 'usd',
   bitcoin: 'bitcoin',
 }
+
+export const OFFER_VALUE = 1000;
+
+export const QUEST_REWARD = 1000;
 
 export const QUEST_TYPE = {
   gainTotal: 'gainTotal',

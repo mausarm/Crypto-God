@@ -65,8 +65,8 @@ export const INITIAL_UI_STATE = {
 }
 
 export const INITIAL_OFFER_STATE = {
-    lastNewAsset: undefined,
-    nextNewAssetDate: new Date(0) //undefined besser
+    lastNewAsset: null,
+    nextNewAssetDate: new Date(0) //null besser?
 }
 
 export const INITIAL_QUEST = new Quest(QUEST_TYPE.gainTotal, QUEST_DURATION.tenMin, QUEST_STATUS.prestart, new Date(0), [], 0, 0)

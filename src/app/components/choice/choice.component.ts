@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 
 import * as fromActions from 'src/app/store/actions';
 
-import { STATUS } from 'src/app/store/global_constants';
+import { OFFER_VALUE, STATUS } from 'src/app/store/global_constants';
 import { interval, Subscription, timer } from 'rxjs';
 
 
@@ -57,7 +57,7 @@ export class ChoiceComponent implements OnInit, OnDestroy {
   public choose(chosenAsset: Asset) {
     const newAsset = chosenAsset.clone();
     newAsset.status = STATUS.owned;
-    newAsset.amount_history = [1000 / newAsset.price];
+    newAsset.amount_history = [OFFER_VALUE / newAsset.price];
     newAsset.amount_timestamps = [new Date()];
     this.store.dispatch(fromActions.addAsset({ newAsset }));
     this.store.dispatch(fromActions.deleteOffered());

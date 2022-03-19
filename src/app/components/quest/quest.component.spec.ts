@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideMockStore } from '@ngrx/store/testing';
+import { MOCK_APPSTATE } from 'src/app/store/mock_appstate';
 
 import { QuestComponent } from './quest.component';
 
@@ -8,6 +10,7 @@ describe('QuestComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      providers: [provideMockStore({})],
       declarations: [ QuestComponent ]
     })
     .compileComponents();
@@ -16,6 +19,7 @@ describe('QuestComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(QuestComponent);
     component = fixture.componentInstance;
+    component.quest = MOCK_APPSTATE.quest;
     fixture.detectChanges();
   });
 

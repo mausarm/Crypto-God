@@ -1,7 +1,7 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import { INITIAL_ASSETS, INITIAL_UI_STATE, INITIAL_OFFER_STATE, INITIAL_QUEST } from 'src/app/store/initial_state';
 import * as fromActions from 'src/app/store/actions';
-import { QUEST_DURATION, QUEST_STATUS, QUEST_TYPE, RADIOCHECKED, STATUS } from './global_constants';
+import { BUYSELL_VALUE, QUEST_DURATION, QUEST_STATUS, QUEST_TYPE, RADIOCHECKED, STATUS } from './global_constants';
 import { calculateTotalAssets } from '../logic/calculate_total';
 import { mergedInto } from '../logic/merged_into';
 import { Quest } from './quest';
@@ -32,10 +32,10 @@ export const assetReducer = createReducer(
 
     const usd = assets.find((a) => a.status === STATUS.usd).clone();
     const assetToBuy = assets.find((a) => a.id === assetID).clone();
-    //wenn noch 1000USD vorhanden sind, dann wird im Wert von 1000USD gekauft
-    if (usd.amount_history[usd.amount_history.length - 1] >= 1000) {
-      assetToBuy.amount_history.push(assetToBuy.amount_history[assetToBuy.amount_history.length - 1] + (1000 / assetToBuy.price));
-      usd.amount_history.push(usd.amount_history[usd.amount_history.length - 1] - 1000);
+    //wenn noch BUYSELL_VALUE USD vorhanden sind, dann wird im Wert von BUYSELL_VALUE USD gekauft
+    if (usd.amount_history[usd.amount_history.length - 1] >= BUYSELL_VALUE) {
+      assetToBuy.amount_history.push(assetToBuy.amount_history[assetToBuy.amount_history.length - 1] + (BUYSELL_VALUE / assetToBuy.price));
+      usd.amount_history.push(usd.amount_history[usd.amount_history.length - 1] - BUYSELL_VALUE);
     }
     //ansonsten werden alle restlichen USD investiert
     else {
@@ -77,9 +77,9 @@ export const assetReducer = createReducer(
     const assetToSell = assets.find((a) => a.id === assetID).clone();
 
     //wenn noch Asset im Wert von über 1000USD vorhanden ist, dann wird im Wert von 1000USD verkauft
-    if (assetToSell.amount_history[assetToSell.amount_history.length - 1] * assetToSell.price > 1000) {
-      assetToSell.amount_history.push(assetToSell.amount_history[assetToSell.amount_history.length - 1] - (1000 / assetToSell.price));
-      usd.amount_history.push(usd.amount_history[usd.amount_history.length - 1] + 1000);
+    if (assetToSell.amount_history[assetToSell.amount_history.length - 1] * assetToSell.price > BUYSELL_VALUE) {
+      assetToSell.amount_history.push(assetToSell.amount_history[assetToSell.amount_history.length - 1] - (BUYSELL_VALUE / assetToSell.price));
+      usd.amount_history.push(usd.amount_history[usd.amount_history.length - 1] + BUYSELL_VALUE);
     }
     //wenn weniger vorhanden ist, dann wird der Rest verkauft
     else {

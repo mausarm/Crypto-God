@@ -60,7 +60,7 @@ export class DataService {
         retryWhen(errors => errors
           .pipe(
             delay(this.getDelayForNextAPIRequest()),
-            mergeMap(error => retries-- > 0 ? of(error) : throwError("Crypto data server not available. Please try again."))
+            mergeMap(error => retries-- > 0 ? of(error) : throwError("Crypto data server not available"))
           )
         ),
         switchMap(
@@ -170,7 +170,7 @@ export class DataService {
         retryWhen(errors => errors
           .pipe(
             delay(this.getDelayForNextAPIRequest()),
-            mergeMap(error => retries-- > 0 ? of(error) : throwError("Crypto data server not available. Please try again."))
+            mergeMap(error => retries-- > 0 ? of(error) : throwError("Crypto data server not available."))
           )
         ),
         switchMap(

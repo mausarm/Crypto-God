@@ -1,32 +1,57 @@
-{{quest.type}} <br>
+
 <div *ngIf="quest.type === QUEST_TYPE.gainTotal">
-  Gain 100$ total in {{quest.duration}}
+  Gain 100$ in {{quest.duration}}
 </div>
+
 <div *ngIf="quest.type === QUEST_TYPE.beatBitcoin">
   Beat Bitcoin in {{quest.duration}}
 </div>
+
 <div *ngIf="quest.type === QUEST_TYPE.beatAverage">
-  Beat Average in {{quest.duration}}
+  Beat average in {{quest.duration}}
 </div>
+
 <div *ngIf="quest.type === QUEST_TYPE.beatHodler">
   Beat the Hodler in {{quest.duration}}
 </div>
+
 <div *ngIf="quest.status === QUEST_STATUS.prestart">
-
   <button (click)="startQuest()">start quest</button>
-
 </div>
 
 <div *ngIf="quest.status !== QUEST_STATUS.prestart">
-  score: {{quest.score}} <br>
-  target: {{quest.target}} <br>
+
+  <div *ngIf="quest.type === QUEST_TYPE.gainTotal">
+    your gain: {{quest.score}}$ <br>
+    target: {{quest.target}}$ <br>
+  </div>
+
+  <div *ngIf="quest.type === QUEST_TYPE.beatBitcoin">
+    your gain: {{quest.score}}% <br>
+    Bitcoin: {{quest.target}}% <br>
+  </div>
+
+  <div *ngIf="quest.type === QUEST_TYPE.beatAverage">
+    your gain: {{quest.score}}% <br>
+    average: {{quest.target}}% <br>
+  </div>
+
+  <div *ngIf="quest.type === QUEST_TYPE.beatHodler">
+    your gain: {{quest.score}}% <br>
+    Hodler: {{quest.target}}% <br>
+  </div>
+
+</div>
+
+<div *ngIf="quest.status === QUEST_STATUS.active">
   quest ends in <br>
   {{hours}}:{{minutes | number:'2.0-0'}}:{{seconds | number:'2.0-0'}} hours
 
-  <div>
+  <div *ngIf="quest.status === QUEST_STATUS.won">
     <button (click)="getReward()">Get {{QUEST_REWARD}}$ reward</button>
   </div>
-  <div>
+
+  <div *ngIf="quest.status === QUEST_STATUS.lost">
     <button (click)="newQuest()">new quest</button>
   </div>
 

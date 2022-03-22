@@ -6,15 +6,25 @@ import { findRange } from "./find_range";
 export function calculateQuestScore(quest: Quest, assets: ReadonlyArray<Asset>): number {
 
   let result = -1;
+  let total = getPriceAfter(assets.find(a => a.id === ASSET_ID.total), quest.endTime);
+  //falls zwischendurch Offers angenommen wurden, werden diese Gewinne abgezogen
+  total -= (assets.filter(a => a.status === STATUS.owned).length - quest.startAssets.filter(a => a.status === STATUS.owned).length) * OFFER_VALUE;
+  const startTotal = quest.startAssets.find(a => a.id === ASSET_ID.total).amount_history[0];
 
   switch (quest.type) {
     case QUEST_TYPE.gainTotal:
-      let total = getPriceAfter(assets.find(a => a.id === ASSET_ID.total), quest.endTime);
-      //falls zwischendurch Offers angenommen wurden, werden diese Gewinne abgezogen
-      total -= (assets.filter(a => a.status === STATUS.owned).length - quest.startAssets.filter(a => a.status === STATUS.owned).length) * OFFER_VALUE;
-      const startTotal = quest.startAssets.find(a => a.id === ASSET_ID.total).amount_history[0];
       result = total - startTotal;
       break;
+    case QUEST_TYPE.beatBitcoin:
+      result = (total / startTotal - 1) * 100;
+      break;
+    case QUEST_TYPE.beatAverage:
+      result = (total / startTotal - 1) * 100;
+      break;
+    case QUEST_TYPE.beatHodler:
+      result = (total / startTotal - 1) * 100;
+      break;
+
   }
 
   return result;

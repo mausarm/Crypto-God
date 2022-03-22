@@ -30,13 +30,13 @@ export function parseJsonToAppstate(json: string): AppState {
     );
 
 
-    appState.uiState.chosenAssetId = d.uiState.chosenAssetId ?? INITIAL_UI_STATE.chosenAssetId;
-    appState.uiState.range = +d.uiState.range ?? INITIAL_UI_STATE.range;
-    appState.uiState.radioChecked = d.uiState.radioChecked ?? INITIAL_UI_STATE.radioChecked;
-    appState.uiState.isLoading = d.uiState.isLoading ?? INITIAL_UI_STATE.isLoading;
+    appState.uiState.chosenAssetId = INITIAL_UI_STATE.chosenAssetId;
+    appState.uiState.range = INITIAL_UI_STATE.range;
+    appState.uiState.radioChecked = INITIAL_UI_STATE.radioChecked;
+    appState.uiState.isLoading = INITIAL_UI_STATE.isLoading;
     appState.uiState.showSoldCryptos = <boolean>d.uiState.showSoldCryptos ?? INITIAL_UI_STATE.showSoldCryptos;
-    appState.uiState.alertAssetId = d.uiState.alertAssetId ?? INITIAL_UI_STATE.alertAssetId;
-    appState.uiState.errorMessage = d.uiState.errorMessage ?? INITIAL_UI_STATE.errorMessage;
+    appState.uiState.alertAssetId = INITIAL_UI_STATE.alertAssetId;
+    appState.uiState.errorMessage = INITIAL_UI_STATE.errorMessage;
 
 
 

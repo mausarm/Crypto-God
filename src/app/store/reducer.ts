@@ -1,7 +1,7 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import { INITIAL_ASSETS, INITIAL_UI_STATE, INITIAL_OFFER_STATE, INITIAL_QUEST } from 'src/app/store/initial_state';
 import * as fromActions from 'src/app/store/actions';
-import { BUYSELL_VALUE, QUEST_DURATION, QUEST_REWARD, QUEST_STATUS, QUEST_TYPE, RADIOCHECKED, STATUS } from './global_constants';
+import { BUYSELL_VALUE, QUEST_DURATION, QUEST_REWARD, QUEST_STATUS, QUEST_TYPE, RADIOCHECKED, RANGES, STATUS } from './global_constants';
 import { calculateTotalAssets } from '../logic/calculate_total';
 import { mergedInto } from '../logic/merged_into';
 import { Quest } from './quest';
@@ -139,14 +139,28 @@ export const assetReducer = createReducer(
   on(fromActions.getReward, (assets, { }) => {
 
     const usd = assets.find((a) => a.status === STATUS.usd).clone();
+    const total = assets.find((a) => a.status === STATUS.total).clone();
+    const newTotal = total.amount_history[0] + QUEST_REWARD;
+
     usd.amount_history.push(usd.amount_history[usd.amount_history.length - 1] + QUEST_REWARD);
+    usd.amount_timestamps.push(new Date());
+
+    total.amount_history = [newTotal];
+    total.amount_timestamps = [new Date()];
+
+    for (let range = 0; range <= RANGES.all; range++) {
+      total.history[range].prices.pop();
+      total.history[range].prices.push(newTotal);
+      total.history[range].timestamps.pop();
+      total.history[range].timestamps.push(new Date());
+    }
 
     return assets.map((a) => {
       if (a.status === STATUS.usd) {
         return usd;
       }
       else if (a.status === STATUS.total){
-        return calculateTotalAssets(assets.map(a => a.status === STATUS.usd ? usd : a));
+        return total;
       }
       else {
         return a;

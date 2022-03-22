@@ -69,6 +69,7 @@ export class QuestComponent implements OnInit, OnDestroy {
 
   getReward() {
     this.store.dispatch(fromActions.getReward());
+    this.store.dispatch(fromActions.newQuest({ lastQuest: this.quest }));
   }
 
 }

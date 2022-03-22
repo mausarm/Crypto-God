@@ -28,9 +28,7 @@ export class DataService {
 
 
   public loadState(): Observable<AppState> {
-    let loadedState: AppState = parseJsonToAppstate(localStorage.getItem('AppState'));
-    loadedState.uiState.isLoading = true; //muss in jedem Fall auf true gesetzt werden, bis API Success eintritt
-    loadedState.uiState.errorMessage = ""; //falls noch ein alter Error abgespeichert war
+    const loadedState: AppState = parseJsonToAppstate(localStorage.getItem('AppState'));
     return of(loadedState);
   }
 

@@ -65,7 +65,7 @@ export const assetReducer = createReducer(
         return assetToBuy;
       }
       else {
-        return a.clone();
+        return a;
       }
     })
 
@@ -108,7 +108,7 @@ export const assetReducer = createReducer(
         return assetToSell;
       }
       else {
-        return a.clone();
+        return a;
       }
     })
   }),
@@ -137,16 +137,19 @@ export const assetReducer = createReducer(
   }),
 
   on(fromActions.getReward, (assets, { }) => {
-    const usd = assets.find((a) => a.status === STATUS.usd).clone();
 
+    const usd = assets.find((a) => a.status === STATUS.usd).clone();
     usd.amount_history.push(usd.amount_history[usd.amount_history.length - 1] + QUEST_REWARD);
 
     return assets.map((a) => {
       if (a.status === STATUS.usd) {
         return usd;
       }
+      else if (a.status === STATUS.total){
+        return calculateTotalAssets(assets.map(a => a.status === STATUS.usd ? usd : a));
+      }
       else {
-        return a.clone();
+        return a;
       }
     })
   }),

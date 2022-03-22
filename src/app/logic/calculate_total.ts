@@ -4,6 +4,8 @@ import { findRange } from './find_range';
 
 export function calculateTotalAssets(assets: ReadonlyArray<Asset>): Asset {
 
+  const start = new Date();
+
   const total = assets.filter((a) => a.status === STATUS.total)[0].clone();
 
   calculateActualTotal();
@@ -13,6 +15,8 @@ export function calculateTotalAssets(assets: ReadonlyArray<Asset>): Asset {
   for (let asset of assets.filter((a) => a.status === STATUS.owned || a.status === STATUS.usd)) {
     addHistoryOf(asset);
   }
+
+  console.log("calculateTotalAssets in "+ ((new Date()).getTime() - start.getTime())+ "ms");
 
   return total;
 

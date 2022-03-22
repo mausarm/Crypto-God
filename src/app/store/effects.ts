@@ -47,6 +47,8 @@ export class Effects {
         fromActions.updateAssetsSuccess,
         fromActions.startQuest,
         fromActions.updateQuest,
+        fromActions.getReward,
+        fromActions.newQuest
       ]),
       withLatestFrom(this.store.pipe(select(fromSelectors.selectAppState))),
       tap(([action, appState]) => this.dataService.storeState(appState))
@@ -64,7 +66,7 @@ export class Effects {
       switchMap(([action, assets]) => this.dataService.updateAssets(assets)
         .pipe(
           map((updatedAssets) => fromActions.updateAssetsSuccess({ updatedAssets })),
-          catchError((error) => of(1)
+          catchError((error) => of(1) //TODO: besser lösen
             .pipe(
               withLatestFrom(this.store.pipe(select(fromSelectors.selectIsLoading))),
               switchMap(([dummy, isLoading]) => {

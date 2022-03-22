@@ -1,7 +1,7 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import { INITIAL_ASSETS, INITIAL_UI_STATE, INITIAL_OFFER_STATE, INITIAL_QUEST } from 'src/app/store/initial_state';
 import * as fromActions from 'src/app/store/actions';
-import { BUYSELL_VALUE, QUEST_DURATION, QUEST_STATUS, QUEST_TYPE, RADIOCHECKED, STATUS } from './global_constants';
+import { BUYSELL_VALUE, QUEST_DURATION, QUEST_REWARD, QUEST_STATUS, QUEST_TYPE, RADIOCHECKED, STATUS } from './global_constants';
 import { calculateTotalAssets } from '../logic/calculate_total';
 import { mergedInto } from '../logic/merged_into';
 import { Quest } from './quest';
@@ -134,6 +134,21 @@ export const assetReducer = createReducer(
 
   on(fromActions.deleteOffered, (assets, { }) => {
     return assets.filter((a) => a.status != STATUS.offered);
+  }),
+
+  on(fromActions.getReward, (assets, { }) => {
+    const usd = assets.find((a) => a.status === STATUS.usd).clone();
+
+    usd.amount_history.push(usd.amount_history[usd.amount_history.length - 1] + QUEST_REWARD);
+
+    return assets.map((a) => {
+      if (a.status === STATUS.usd) {
+        return usd;
+      }
+      else {
+        return a.clone();
+      }
+    })
   }),
 
 
@@ -307,5 +322,27 @@ export const questReducer = createReducer(
     }
 
     return result;
+  }),
+
+  on(fromActions.newQuest, (quest, { lastQuest }) => {
+
+    //Zufälligen Quest Type wählen, der ungleich dem letzten ist
+    const values = Object.values(QUEST_TYPE).filter(k => k !== lastQuest.type);
+    const newType = values[values.length * Math.random() << 0];
+
+
+    switch (newType) {
+      case QUEST_TYPE.gainTotal:
+        return new Quest(newType, QUEST_DURATION.tenMin, QUEST_STATUS.prestart, new Date(0), [], 0, 0);
+      case QUEST_TYPE.beatBitcoin:
+        return new Quest(newType, QUEST_DURATION.tenMin, QUEST_STATUS.prestart, new Date(0), [], 0, 0);
+      case QUEST_TYPE.beatAverage:
+          return new Quest(newType, QUEST_DURATION.hour, QUEST_STATUS.prestart, new Date(0), [], 0, 0);
+      case QUEST_TYPE.beatHodler:
+          return new Quest(newType, QUEST_DURATION.day, QUEST_STATUS.prestart, new Date(0), [], 0, 0);
+    }
+
+
+
   }),
 );

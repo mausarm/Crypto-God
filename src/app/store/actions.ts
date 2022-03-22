@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { Asset } from 'src/app/store/asset';
 import { AppState } from './app_state';
+import { Quest } from './quest';
 
 export const addAsset = createAction(
     '[offer] Add Asset',
@@ -96,4 +97,13 @@ export const startQuest = createAction(
 export const updateQuest = createAction(
   '[effect] Update Quest',
   props<{ assets: ReadonlyArray<Asset> }>()
+);
+
+export const newQuest = createAction(
+  '[quest] New Quest',
+  props<{ lastQuest: Quest }>()
+);
+
+export const getReward = createAction(
+  '[quest] Get Reward'
 );

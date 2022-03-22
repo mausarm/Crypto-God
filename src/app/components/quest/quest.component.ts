@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription, timer } from 'rxjs';
 import { Asset } from 'src/app/store/asset';
-import { QUEST_STATUS, QUEST_TYPE } from 'src/app/store/global_constants';
+import { QUEST_REWARD, QUEST_STATUS, QUEST_TYPE } from 'src/app/store/global_constants';
 import { Quest } from 'src/app/store/quest';
 import * as fromActions from 'src/app/store/actions';
 
@@ -19,6 +19,7 @@ export class QuestComponent implements OnInit, OnDestroy {
 
   QUEST_STATUS = QUEST_STATUS;
   QUEST_TYPE = QUEST_TYPE;
+  QUEST_REWARD = QUEST_REWARD;
 
   private subscription: Subscription;
 
@@ -60,6 +61,15 @@ export class QuestComponent implements OnInit, OnDestroy {
 
   startQuest() {
     this.store.dispatch(fromActions.startQuest({ startAssets: this.assets }));
-
   }
+
+  newQuest() {
+    this.store.dispatch(fromActions.newQuest({ lastQuest: this.quest }));
+  }
+
+  getReward() {
+    this.store.dispatch(fromActions.getReward());
+  }
+
 }
+

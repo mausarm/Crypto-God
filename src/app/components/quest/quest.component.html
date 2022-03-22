@@ -1,14 +1,25 @@
-<p> quest works!</p>
+<div *ngIf="quest.status === QUEST_STATUS.prestart">
 
-<ul>
-<li>quest type: {{quest.type}}</li>
-<li *ngIf="quest.status !== QUEST_STATUS.prestart">score: {{quest.score}}</li>
-<li *ngIf="quest.status !== QUEST_STATUS.prestart">target: {{quest.target}}</li>
-</ul>
+  {{quest.type}} <br>
+  <div *ngIf="quest.type === QUEST_TYPE.gainTotal">
+    Gain 100$ total in {{quest.duration}}
+  </div>
+  <button (click)="startQuest()">start quest</button>
 
-<button *ngIf="quest.status === QUEST_STATUS.prestart" (click)="startQuest()">start quest</button>
+</div>
 
 <div *ngIf="quest.status !== QUEST_STATUS.prestart">
-quest ends in <br>
-{{hours}}:{{minutes | number:'2.0-0'}}:{{seconds | number:'2.0-0'}} hours
+  score: {{quest.score}} <br>
+  target: {{quest.target}} <br>
+  quest ends in <br>
+  {{hours}}:{{minutes | number:'2.0-0'}}:{{seconds | number:'2.0-0'}} hours
+
+  <div *ngIf="quest.status === QUEST_STATUS.won">
+    <button (click)="getReward()">Get {{QUEST_REWARD}}$ reward</button>
+  </div>
+  <div>
+    <button (click)="newQuest()">new quest</button>
+  </div>
+
 </div>
+

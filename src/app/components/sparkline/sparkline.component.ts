@@ -29,8 +29,8 @@ export class SparklineComponent implements OnInit, OnChanges {
     Chart.defaults.global.defaultFontColor = '#fff';
 
     this.chartData = [{
-
       pointRadius: 0,
+      pointHoverRadius: 0,
       fill: false,
       data: this.asset.history[this.range].prices.slice()
     }];
@@ -71,6 +71,7 @@ export class SparklineComponent implements OnInit, OnChanges {
   ngOnChanges(): any {
     this.chartData = [{
       pointRadius: 0,
+      pointHoverRadius: 0,
       fill: false,
       data: this.asset.history[this.range].prices.slice()
     }];

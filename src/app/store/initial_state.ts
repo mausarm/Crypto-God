@@ -56,7 +56,7 @@ export const INITIAL_ASSETS: ReadonlyArray<Asset> = [
 
 export const INITIAL_UI_STATE = {
     chosenAssetId: ASSET_ID.total,
-    range: RANGES.month,
+    range: RANGES.all,
     radioChecked: RADIOCHECKED.none,
     isLoading: true,
     showSoldCryptos: true,

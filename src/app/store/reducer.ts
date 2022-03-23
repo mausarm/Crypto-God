@@ -19,8 +19,8 @@ export const assetReducer = createReducer(
 
   on(fromActions.addAsset, (assets, { newAsset }) => {
     return assets.map((a) => {
-      if (a.status != STATUS.total) {
-        return a.clone();
+      if (a.status !== STATUS.total) {
+        return a;
       }
       else {
         return calculateTotalAssets([...assets, newAsset]);

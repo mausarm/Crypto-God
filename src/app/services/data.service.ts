@@ -240,8 +240,8 @@ export class DataService {
           )
         ),
         switchMap((assetData) => {
-          //ein Array von 4 Assets, die noch nicht im Besitz sind
-          const unpickedAssets = assetData.filter(d => !excludedAssets.find(x => x.id === d.id));
+          //ein Array von 4 Assets, die noch nicht im Besitz sind und keine Stablecoins sind
+          const unpickedAssets = assetData.filter(d => !excludedAssets.find(x => x.id === d.id) && Math.round(d.current_price * 10) !== 10);
           const newOffer: Asset[] = [];
           while (newOffer.length < 4) {
             const d = unpickedAssets.splice(Math.floor(Math.random() * unpickedAssets.length), 1)[0];

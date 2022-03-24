@@ -1,6 +1,5 @@
 import { Component, OnInit, OnChanges, Input } from '@angular/core';
-import { Chart, ChartDataSets, ChartOptions } from 'chart.js';
-import { Color, Label } from 'ng2-charts';
+import { Chart, ChartDataset, ChartOptions, ChartType } from 'chart.js';
 import { COLORS } from 'src/app/store/global_constants';
 
 import { Asset } from '../../store/asset';
@@ -15,10 +14,10 @@ export class SparklineComponent implements OnInit, OnChanges {
   @Input() asset: Asset;
   @Input() range: number;
 
-  chartData: ChartDataSets[];
-  chartLabels: Label[];
+  chartType: ChartType = 'line';
+  chartData: ChartDataset[];
+  chartLabels: any[];
   chartOptions: ChartOptions;
-  chartColors: Color[];
 
 
   constructor() {
@@ -28,31 +27,18 @@ export class SparklineComponent implements OnInit, OnChanges {
   ngOnInit(): void {
 
     this.chartOptions = {
-      tooltips: { enabled: false },
+      plugins: {
+        tooltip: { enabled: false },
+        legend: { display: false },
+      },
       responsive: true,
       maintainAspectRatio: false,
-      animation: {
-        duration: 0,
-      },
-      legend: {
-        display: false
-      },
+      animation: { duration: 0 },
       scales: {
-        yAxes: [{
-          display: false
-        }],
-        xAxes: [{
-          display: false
-        }]
+        x: { display: false },
+        y: { display: false }
       }
     };
-
-    this.chartColors = [
-      {
-        borderColor: COLORS.redLight,
-        borderWidth: 2
-      },
-    ];
 
     this.updateChart();
   }
@@ -62,12 +48,15 @@ export class SparklineComponent implements OnInit, OnChanges {
     this.updateChart();
   }
 
+
   private updateChart() {
     this.chartData = [{
       pointRadius: 0,
       pointHoverRadius: 0,
       fill: false,
-      data: this.asset.history[this.range].prices.slice()
+      data: this.asset.history[this.range].prices.slice(),
+      borderColor: COLORS.redLight,
+      borderWidth: 2
     }];
 
     this.chartLabels = this.asset.history[this.range].timestamps.map(x => "");

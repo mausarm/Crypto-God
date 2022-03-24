@@ -5,8 +5,7 @@ import { Asset } from 'src/app/store/asset';
 import { COLORS, QUEST_REWARD, QUEST_STATUS, QUEST_TYPE } from 'src/app/store/global_constants';
 import { Quest } from 'src/app/store/quest';
 import * as fromActions from 'src/app/store/actions';
-import { Color, Label } from 'ng2-charts';
-import { Chart, ChartDataSets, ChartOptions, ChartType } from 'chart.js';
+import { Chart, ChartDataset, ChartOptions, ChartType } from 'chart.js';
 
 
 @Component({
@@ -24,12 +23,11 @@ export class QuestComponent implements OnInit, OnDestroy, OnChanges {
   QUEST_REWARD = QUEST_REWARD;
 
   chartOptions: ChartOptions;
-  chartLabels: Label[];
+  chartLabels: any[];
   chartType: ChartType = 'bar';
   chartLegend = false;
   chartPlugins = [];
-  chartData: ChartDataSets[];
-  chartColors: Color[];
+  chartData: ChartDataset[];
 
   private subscription: Subscription;
   public dateNow = new Date();
@@ -62,19 +60,19 @@ export class QuestComponent implements OnInit, OnDestroy, OnChanges {
     this.subscription = timer(0, 1000)
       .subscribe(x => { this.getTimeDifference(); });
 
-    Chart.defaults.global.defaultFontColor = COLORS.white;
+    Chart.defaults.color = COLORS.white;
 
     this.chartOptions = {
       responsive: true,
       scales: {
-        yAxes: [{
+        y: {
+          beginAtZero: true,
           ticks: {
-            beginAtZero: true,
-            callback: function(value, index, ticks) {
-              return Chart.Ticks.formatters.numeric.apply(this, [value, index, ticks])+"%";
+            callback: function(val, index) {
+              return this.getLabelForValue(Number(val))+"%";
             }
           }
-        }]
+        }
       }
     };
     this.updateChart();
@@ -104,17 +102,13 @@ export class QuestComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   private updateChart() {
-    this.chartData = [
-      {
-        data: [this.quest.score, this.quest.target]
-      }
-    ];
 
     this.chartLabels = ['you', 'target'];
 
     if (this.quest.score > this.quest.target) {
-      this.chartColors = [
+      this.chartData = [
         {
+          data: [this.quest.score, this.quest.target],
           backgroundColor: [COLORS.green, COLORS.red],
           hoverBackgroundColor: [COLORS.greenLight, COLORS.redLight],
           borderWidth: 0
@@ -122,8 +116,9 @@ export class QuestComponent implements OnInit, OnDestroy, OnChanges {
       ];
     }
     else {
-      this.chartColors = [
+      this.chartData = [
         {
+          data: [this.quest.score, this.quest.target],
           backgroundColor: [COLORS.red, COLORS.green],
           hoverBackgroundColor: [COLORS.redLight, COLORS.greenLight],
           borderWidth: 0

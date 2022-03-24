@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ChartsModule } from 'ng2-charts';
+import { NgChartsModule } from 'ng2-charts';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
@@ -54,7 +54,7 @@ import { QuestComponent } from './components/quest/quest.component';
       autoPause: true, // Pauses recording actions and state changes when the extension window is not open
     }),
     FormsModule,
-    ChartsModule,
+    NgChartsModule,
     DragDropModule,
     MatProgressSpinnerModule,
     MatIconModule,

@@ -4,6 +4,7 @@ import { formatDate } from '@angular/common';
 import { Color, Label } from 'ng2-charts';
 
 import { Asset } from '../../store/asset';
+import { COLORS } from 'src/app/store/global_constants';
 
 @Component({
   selector: 'app-chart',
@@ -27,7 +28,7 @@ export class ChartComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
 
-    Chart.defaults.global.defaultFontColor = '#fff';
+    Chart.defaults.global.defaultFontColor = COLORS.white;
 
     this.chartOptions = {
       layout: {
@@ -47,7 +48,6 @@ export class ChartComponent implements OnInit, OnChanges {
         duration: 0,
       },
       legend: {
-        //display: false,
         labels: {
           fontSize: 16,
           boxWidth: 0
@@ -76,9 +76,9 @@ export class ChartComponent implements OnInit, OnChanges {
 
     this.chartColors = [
       {
-        borderColor: '#d15774',
-        pointHoverBorderColor: '#d15774',
-        pointHoverBackgroundColor: '#fff',
+        borderColor: COLORS.redLight,
+        pointHoverBorderColor: COLORS.redLight,
+        pointHoverBackgroundColor: COLORS.white,
       },
     ];
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnChanges, Input } from '@angular/core';
 import { Chart, ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
+import { COLORS } from 'src/app/store/global_constants';
 
 import { Asset } from '../../store/asset';
 
@@ -26,17 +27,6 @@ export class SparklineComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
 
-    Chart.defaults.global.defaultFontColor = '#fff';
-
-    this.chartData = [{
-      pointRadius: 0,
-      pointHoverRadius: 0,
-      fill: false,
-      data: this.asset.history[this.range].prices.slice()
-    }];
-
-    this.chartLabels = this.asset.history[this.range].timestamps.map(x => "");
-
     this.chartOptions = {
       tooltips: { enabled: false },
       responsive: true,
@@ -59,16 +49,20 @@ export class SparklineComponent implements OnInit, OnChanges {
 
     this.chartColors = [
       {
-        borderColor: '#d15774',
+        borderColor: COLORS.redLight,
         borderWidth: 2
       },
     ];
 
-
-
-
+    this.updateChart();
   }
+
+
   ngOnChanges(): any {
+    this.updateChart();
+  }
+
+  private updateChart() {
     this.chartData = [{
       pointRadius: 0,
       pointHoverRadius: 0,
@@ -78,6 +72,4 @@ export class SparklineComponent implements OnInit, OnChanges {
 
     this.chartLabels = this.asset.history[this.range].timestamps.map(x => "");
   }
-
-
 }

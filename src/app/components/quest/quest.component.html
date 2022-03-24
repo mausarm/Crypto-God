@@ -1,70 +1,51 @@
-<div *ngIf="quest.type === QUEST_TYPE.gainTotal">
-  Gain 100$ in {{quest.duration}}
-</div>
+<div class="quest-container">
 
-<div *ngIf="quest.type === QUEST_TYPE.beatBitcoin">
-  Beat Bitcoin in {{quest.duration}}
-</div>
 
-<div *ngIf="quest.type === QUEST_TYPE.beatAverage">
-  Beat average in {{quest.duration}}
-</div>
+  <div class="top-container">
+    <div *ngIf="quest.type === QUEST_TYPE.gainTotal">
+      Gain 100$ in {{quest.duration}}
+    </div>
 
-<div *ngIf="quest.type === QUEST_TYPE.beatHodler">
-  Beat the Hodler in {{quest.duration}}
-</div>
+    <div *ngIf="quest.type === QUEST_TYPE.beatBitcoin">
+      Beat Bitcoin in {{quest.duration}}
+    </div>
 
-<div *ngIf="quest.status === QUEST_STATUS.prestart">
-  <button (click)="startQuest()">start quest</button>
-</div>
+    <div *ngIf="quest.type === QUEST_TYPE.beatAverage">
+      Beat average in {{quest.duration}}
+    </div>
 
-<div *ngIf="quest.status !== QUEST_STATUS.prestart">
-
-  <div *ngIf="quest.type === QUEST_TYPE.gainTotal">
-    your gain: {{quest.score}}$ <br>
-    target: {{quest.target}}$ <br>
+    <div *ngIf="quest.type === QUEST_TYPE.beatHodler">
+      Beat the Hodler in {{quest.duration}}
+    </div>
   </div>
 
-  <div *ngIf="quest.type === QUEST_TYPE.beatBitcoin">
-    your gain: {{quest.score}}% <br>
-    Bitcoin: {{quest.target}}% <br>
+
+
+  <div class="mid-container" *ngIf="quest.status !== QUEST_STATUS.prestart">
+    <div class="chart">
+      <canvas baseChart [datasets]="chartData" [labels]="chartLabels" [options]="chartOptions" [plugins]="chartPlugins"
+        [legend]="chartLegend" [colors]="chartColors" [chartType]="chartType">
+      </canvas>
+    </div>
   </div>
 
-  <div *ngIf="quest.type === QUEST_TYPE.beatAverage">
-    your gain: {{quest.score}}% <br>
-    average: {{quest.target}}% <br>
+
+  <div class="bottom-container">
+    <div *ngIf="quest.status === QUEST_STATUS.active">
+      quest ends in <br>
+      {{hours}}:{{minutes | number:'2.0-0'}}:{{seconds | number:'2.0-0'}} hours
+    </div>
+
+    <div *ngIf="quest.status === QUEST_STATUS.prestart">
+      <button (click)="startQuest()">start quest</button>
+    </div>
+
+    <div *ngIf="quest.status === QUEST_STATUS.won">
+      <button (click)="getReward()">Get {{QUEST_REWARD}}$ reward</button>
+    </div>
+
+    <div *ngIf="quest.status === QUEST_STATUS.lost">
+      <button (click)="newQuest()">new quest</button>
+    </div>
   </div>
-
-  <div *ngIf="quest.type === QUEST_TYPE.beatHodler">
-    your gain: {{quest.score}}% <br>
-    Hodler: {{quest.target}}% <br>
-  </div>
-
-  <div class="chart-wrapper">
-    <canvas baseChart
-    [datasets]="chartData"
-    [labels]="chartLabels"
-    [options]="chartOptions"
-    [plugins]="chartPlugins"
-    [legend]="chartLegend"
-    [colors]="chartColors"
-    [chartType]="chartType">
-  </canvas>
-</div>
-
-
-
-</div>
-
-<div *ngIf="quest.status === QUEST_STATUS.active">
-  quest ends in <br>
-  {{hours}}:{{minutes | number:'2.0-0'}}:{{seconds | number:'2.0-0'}} hours
-
-</div>
-<div *ngIf="quest.status === QUEST_STATUS.won">
-  <button (click)="getReward()">Get {{QUEST_REWARD}}$ reward</button>
-</div>
-
-<div *ngIf="quest.status === QUEST_STATUS.lost">
-  <button (click)="newQuest()">new quest</button>
 </div>

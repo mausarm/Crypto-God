@@ -60,7 +60,7 @@ export class ChartComponent implements OnInit, OnChanges {
             font: { size: 10 }
           },
           grid: {
-            color: 'rgba(100,100,100,1)'
+            color: COLORS.grey
           }
         },
         x: {
@@ -68,7 +68,7 @@ export class ChartComponent implements OnInit, OnChanges {
             font: { size: 10 }
           },
           grid: {
-            color: 'rgba(100,100,100,1)'
+            color: COLORS.grey
           }
         },
       }

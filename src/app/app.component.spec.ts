@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockStore } from '@ngrx/store/testing';
-import { ChartsModule } from 'ng2-charts';
+import { NgChartsModule } from 'ng2-charts';
 import { AppComponent } from './app.component';
 import { ChartComponent } from './components/chart/chart.component';
 import { ChoiceComponent } from './components/choice/choice.component';
@@ -38,7 +38,7 @@ describe('AppComponent', () => {
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
-        ChartsModule,
+        NgChartsModule,
         DragDropModule,
       ],
       providers: [provideMockStore({ initialState: MOCK_APPSTATE })],

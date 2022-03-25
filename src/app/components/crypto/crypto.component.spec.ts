@@ -7,7 +7,7 @@ import { MOCK_APPSTATE } from 'src/app/store/mock_appstate';
 
 import { CryptoComponent } from './crypto.component';
 import { SparklineComponent } from '../sparkline/sparkline.component';
-import { ChartsModule } from 'ng2-charts';
+import { NgChartsModule } from 'ng2-charts';
 
 describe('CryptoComponent', () => {
   let component: CryptoComponent;
@@ -17,7 +17,7 @@ describe('CryptoComponent', () => {
     await TestBed.configureTestingModule({
       providers: [provideMockStore({})],
       declarations: [ CryptoComponent, SparklineComponent ],
-      imports: [ BrowserAnimationsModule, ChartsModule ]
+      imports: [ BrowserAnimationsModule, NgChartsModule ]
     })
     .compileComponents();
   });

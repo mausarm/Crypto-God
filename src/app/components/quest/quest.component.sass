@@ -1,16 +1,79 @@
+@import '../../../assets/style/var'
+
+
 .quest-container
   height: 100%
   display: grid
-  grid-template-rows: auto 20vh auto
+  grid-template-rows: 8vw 30vw auto
+
+
+.top-container
+  font-family: $font1
+  display: flex
+  justify-content: center
+  align-items: center
+
 
 .mid-container
+  height: 100%
+  background-color: $grey
   display: flex
-  flex-direction: column
   justify-content: center
-  align-content: center
   align-items: center
+
+.bottom-container
+  font-family: $font1
+  display: flex
+  justify-content: center
+  align-items: center
+
 
 .chart
   position: relative
-  height: 20vh
-  width: 20vw
+  height: 30vw
+  width: 40vw
+  padding: 1vw
+
+.result-container
+  width: 100%
+  display: grid
+  grid-template-columns: 33% 33% auto
+  align-items: center
+  margin-right: 1vw
+
+
+button
+    padding: 1vw
+    border: none
+    border-radius: 6px
+    font-size: 3vw
+    background-color: $green
+    color: $white
+    text-align: center
+    cursor: pointer
+
+button:hover
+    background-color: $green-light
+
+@media only screen and (min-width: 768px)
+  .quest-container
+    grid-template-rows: 4vw 15vw auto
+
+
+  .top-container
+
+  .mid-container
+
+  .bottom-container
+
+  .chart
+    height: 15vw
+    width: 20vw
+
+  .result-container
+    margin-right: 0.5vw
+
+
+  button
+    padding: 0.5vw
+    font-size: 1.5vw

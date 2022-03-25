@@ -6,6 +6,7 @@ import { COLORS, QUEST_REWARD, QUEST_STATUS, QUEST_TYPE } from 'src/app/store/gl
 import { Quest } from 'src/app/store/quest';
 import * as fromActions from 'src/app/store/actions';
 import { Chart, ChartDataset, ChartOptions, ChartType } from 'chart.js';
+import { questReducer } from 'src/app/store/reducer';
 
 
 @Component({
@@ -64,13 +65,23 @@ export class QuestComponent implements OnInit, OnDestroy, OnChanges {
 
     this.chartOptions = {
       responsive: true,
+      maintainAspectRatio: false,
       scales: {
+        x: {
+          grid: {
+            display: false,
+          }
+        },
         y: {
           beginAtZero: true,
           ticks: {
-            callback: function(val, index) {
-              return this.getLabelForValue(Number(val))+"%";
+            callback: function (val, index) {
+              return this.getLabelForValue(Number(val)) + "%";
             }
+          },
+          grid: {
+            display: false,
+            drawBorder: false
           }
         }
       }
@@ -103,7 +114,20 @@ export class QuestComponent implements OnInit, OnDestroy, OnChanges {
 
   private updateChart() {
 
-    this.chartLabels = ['you', 'target'];
+    switch (this.quest.type) {
+      case QUEST_TYPE.gainTotal:
+        this.chartLabels = ['you', 'target'];
+        break;
+      case QUEST_TYPE.beatBitcoin:
+        this.chartLabels = ['you', 'Bitcoin'];
+        break;
+      case QUEST_TYPE.beatAverage:
+        this.chartLabels = ['you', 'average'];
+        break;
+      case QUEST_TYPE.beatHodler:
+        this.chartLabels = ['you', 'hodler'];
+        break;
+    }
 
     if (this.quest.score > this.quest.target) {
       this.chartData = [

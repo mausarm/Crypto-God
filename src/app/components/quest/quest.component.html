@@ -32,19 +32,23 @@
 
   <div class="bottom-container">
     <div *ngIf="quest.status === QUEST_STATUS.active">
-      quest ends in <br>
-      {{hours}}:{{minutes | number:'2.0-0'}}:{{seconds | number:'2.0-0'}} hours
+      quest ends in
+      {{hours}}:{{minutes | number:'2.0-0'}}:{{seconds | number:'2.0-0'}}
     </div>
 
     <div *ngIf="quest.status === QUEST_STATUS.prestart">
       <button (click)="startQuest()">start quest</button>
     </div>
 
-    <div *ngIf="quest.status === QUEST_STATUS.won">
+    <div class="result-container" *ngIf="quest.status === QUEST_STATUS.won">
+      <div></div>
+      You won!
       <button (click)="getReward()">Get {{QUEST_REWARD}}$ reward</button>
     </div>
 
-    <div *ngIf="quest.status === QUEST_STATUS.lost">
+    <div class="result-container" *ngIf="quest.status === QUEST_STATUS.lost">
+      <div></div>
+      Sorry, you lost!
       <button (click)="newQuest()">new quest</button>
     </div>
   </div>

@@ -11,7 +11,7 @@ import { Asset } from '../../store/asset';
 })
 export class SparklineComponent implements OnInit, OnChanges {
 
-  @Input() asset: Asset;
+  @Input() assethistory: any[];
   @Input() range: number;
 
   chartType: ChartType = 'line';
@@ -54,11 +54,11 @@ export class SparklineComponent implements OnInit, OnChanges {
       pointRadius: 0,
       pointHoverRadius: 0,
       fill: false,
-      data: this.asset.history[this.range].prices.slice(),
+      data: this.assethistory[this.range].prices.slice(),
       borderColor: COLORS.redLight,
       borderWidth: 2
     }];
 
-    this.chartLabels = this.asset.history[this.range].timestamps.map(x => "");
+    this.chartLabels = this.assethistory[this.range].timestamps.map(x => "");
   }
 }

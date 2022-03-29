@@ -57,7 +57,8 @@ export const assetReducer = createReducer(
       usd.amount_history.splice(usd.amount_history.length - 2, 1);
     }
 
-    return assets.map((a) => {
+
+    const result = assets.map((a) => {
       if (a.status === STATUS.usd) {
         return usd;
       }
@@ -69,6 +70,7 @@ export const assetReducer = createReducer(
       }
     })
 
+    return result;
   }),
 
   on(fromActions.sellAsset, (assets, { assetId: assetID }) => {

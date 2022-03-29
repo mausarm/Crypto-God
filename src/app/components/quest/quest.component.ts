@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, OnDestroy, OnInit, ViewChild } from '@angu
 import { Store } from '@ngrx/store';
 import { Subscription, timer } from 'rxjs';
 import { Asset } from 'src/app/store/asset';
-import { COLORS, QUEST_REWARD, QUEST_STATUS, QUEST_TYPE } from 'src/app/store/global_constants';
+import { COLORS, QUEST_DURATION, QUEST_REWARD, QUEST_STATUS, QUEST_TYPE } from 'src/app/store/global_constants';
 import { Quest } from 'src/app/store/quest';
 import * as fromActions from 'src/app/store/actions';
 import { Chart, ChartDataset, ChartOptions, ChartType } from 'chart.js';
@@ -22,6 +22,7 @@ export class QuestComponent implements OnInit, OnDestroy, OnChanges {
   QUEST_STATUS = QUEST_STATUS;
   QUEST_TYPE = QUEST_TYPE;
   QUEST_REWARD = QUEST_REWARD;
+  QUEST_DURATION = QUEST_DURATION;
 
   chartOptions: ChartOptions;
   chartLabels: any[];

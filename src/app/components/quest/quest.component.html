@@ -33,7 +33,8 @@
   <div class="bottom-container">
     <div *ngIf="quest.status === QUEST_STATUS.active">
       quest ends in
-      {{hours}}:{{minutes | number:'2.0-0'}}:{{seconds | number:'2.0-0'}}
+      {{quest.duration === QUEST_DURATION.day ? hours+':' : ''}}{{minutes | number:'2.0-0'}}:{{seconds | number:'2.0-0'}}
+      {{quest.duration === QUEST_DURATION.day ? 'hours' : 'minutes'}}
     </div>
 
     <div *ngIf="quest.status === QUEST_STATUS.prestart">

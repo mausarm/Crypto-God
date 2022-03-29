@@ -11,7 +11,7 @@
     <input class="radio-input" type="radio" value={{this.RADIOCHECKED.all}} name="myRadio" id="radioAll" [(ngModel)]="this.radioChecked">
     <label class="radio-label" for="radioAll" (click)="range(this.RADIOCHECKED.all)">all</label>
     <input class="radio-input" type="radio" value="offer" name="myRadio" id="radioOffer" [(ngModel)]="this.radioChecked">
-    <label [@highlight]="getOfferButtonState()" class="radio-label" for="radioOffer" (click)="offer()">offer</label>
+    <label class="radio-label" for="radioOffer" (click)="offerButton()" [@highlight]="getOfferButtonState()">offer</label>
     <input class="radio-input" type="radio" value="quest" name="myRadio" id="radioQuest" [(ngModel)]="this.radioChecked">
-    <label class="radio-label" for="radioQuest" (click)="quest()">quest</label>
+    <label class="radio-label" for="radioQuest" (click)="questButton()" [@highlight]="getQuestButtonState()">quest</label>
 </div>

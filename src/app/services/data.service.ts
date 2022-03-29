@@ -176,8 +176,8 @@ export class DataService {
             const sparkline = asset.history[range];
 
             if (assetData) {
-              sparkline.prices = assetData.prices.map(x => Number(x[1]));
-              sparkline.timestamps = assetData.prices.map(x => new Date(x[0]));
+              sparkline.prices = thinOutPrices(assetData.prices, range === RANGES.day ? 1000 : 100); //für die Quests soll Intraday möglichst genau sein
+              sparkline.timestamps = thinOutTimestamps(assetData.prices, range === RANGES.day ? 1000 : 100);
               sparkline.prices.push(asset.price); //aktuellsten Preis per Hand dazu
               sparkline.timestamps.push(new Date());
             }
@@ -186,6 +186,27 @@ export class DataService {
           }
         )
       );
+
+      function thinOutPrices(prices: any[], maxLength: number) : number[] {
+        const result: number[] = [];
+        let delta = Math.floor(prices.length / maxLength);
+        if (delta < 1) {delta = 1;}
+        for (let i = 0; i < prices.length; i += delta) {
+          result.push(Number(prices[i][1]));
+        }
+        return result;
+      }
+
+      function thinOutTimestamps(prices: any[], maxLength: number) : Date[] {
+        const result: Date[] = [];
+        let delta = Math.floor(prices.length / maxLength);
+        if (delta < 1) {delta = 1;}
+        for (let i = 0; i < prices.length; i += delta) {
+          result.push(new Date(prices[i][0]));
+        }
+        return result;
+      }
+
   }
 
 

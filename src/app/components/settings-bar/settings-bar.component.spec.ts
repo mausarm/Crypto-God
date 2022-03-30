@@ -6,6 +6,7 @@ import { SettingsBarComponent } from './settings-bar.component';
 import { RADIOCHECKED } from 'src/app/store/global_constants';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { MOCK_APPSTATE } from 'src/app/store/mock_appstate';
 
 
 describe('SettingsBarComponent', () => {
@@ -24,6 +25,7 @@ describe('SettingsBarComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SettingsBarComponent);
     component = fixture.componentInstance;
+    component.quest = MOCK_APPSTATE.quest;
   });
 
   it('should create', () => {

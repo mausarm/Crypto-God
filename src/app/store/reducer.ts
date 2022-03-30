@@ -336,7 +336,7 @@ export const questReducer = createReducer(
       result.score = calculateQuestScore(quest, assets);
       result.target = calculateQuestTarget(quest, assets);
       if (quest.endTime < new Date()) {
-        result.status = (result.score > result.target) ? QUEST_STATUS.won : QUEST_STATUS.lost
+        result.status = (result.score > result.target) ? QUEST_STATUS.won : QUEST_STATUS.lost;
       }
     }
 

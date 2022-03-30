@@ -23,7 +23,7 @@ describe('SparklineComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SparklineComponent);
     component = fixture.componentInstance;
-    component.asset = MOCK_APPSTATE.assets[2];
+    component.assethistory = MOCK_APPSTATE.assets[2].history;
     component.range = RANGES.all;
     fixture.detectChanges();
   });

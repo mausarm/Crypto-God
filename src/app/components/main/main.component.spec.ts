@@ -37,6 +37,7 @@ describe('MainComponent', () => {
         FormsModule,
         NgChartsModule,
         DragDropModule,
+        MatProgressSpinnerModule,
       ]
     })
       .compileComponents();
